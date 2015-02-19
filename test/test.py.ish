@@ -10,8 +10,9 @@ class BrainBase
   
 class WiiMoteBrain
   public start(self, moveCallback)
-    #wiimote.startListeningToChanges(moveCallback)
+    #wiimote.startListeningToChanges(formatData(moveCallback))
   public stop(self)
+  private formatData(wiimotedata)
   
 class AreaMappingBrain
   previousLocation = (0,0)
