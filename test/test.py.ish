@@ -1,0 +1,32 @@
+class Robot
+  public start(self,brain)
+    brain.start(moveCallback)
+  public stop(self)
+  private moveCallback(direction, amount)
+  
+class BrainBase
+  start(self)#notimplemented
+  stop(self)#notimplemented
+  
+class WiiMoteBrain
+  public start(self, moveCallback)
+    #wiimote.startListeningToChanges(moveCallback)
+  public stop(self)
+  
+class AreaMappingBrain
+  previousLocation = (0,0)
+  public start(self, moveCallback)
+    #start distance sensor
+    #start direction sensor
+    #start areaMappingAlgo
+    
+  public stop(self)
+  
+  private onAreaMapper_Step(self, areaMapper)
+    distance = distanceSensor.getDistance();
+    direction = directionSensor.getDirection();
+    storeReadings(distance,direction)
+    nextStep = areaMapper.getNextStep()
+    moveCallback(nextStep)
+    previousLocation.update(nextStep) 
+    
