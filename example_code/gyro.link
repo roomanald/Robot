@@ -1,0 +1,51 @@
+Setup
+http://blog.bitify.co.uk/2013/11/interfacing-raspberry-pi-and-mpu-6050.html
+
+Interfacing Raspberry Pi and MPU-6050
+I wanted to interface my Pi to a Six-Axis Gyro + Accelerometer sensor and the one I settled on was based on a MPU-6050 chip.  I went for this board mainly because I could get it cheap on eBay and wasn't worried about the cost if I broke it.
+
+
+Found on eBay for a few quid
+Set up (for Rasbian)
+It's an I2C board so first you need to install the relevant Linux drivers, here's how.  Open the file for editing (needs sudo)
+sudo vi /etc/modules
+add the following lines to the bottom of the file, save it and reboot the Pi
+i2c-bcm2708
+i2c-dev
+Now check the blacklists file
+sudo vi /etc/modprobe.d/raspi-blacklist.conf
+
+and make sure that the following lines start with a # (a comment) if they are present, if not don't worry
+#blacklist spi-bcm2708
+#blacklist i2c-bcm2708
+
+Pin connections
+Connecting the sensor 
+To connect the sensor you need to use the GPIO pins on the Pi, the important pins are
+Pin 1 - 3.3V connect to VCC
+Pin 3 - SDA connect to SDA
+Pin 5 - SCL connect to SCL
+Pin 6 - Ground connect to GND
+these need to be connect as shown in the image.
+
+Once you have the board connected you can test to see if the Pi has detected it.  This is done with the following command to install the i2c tools
+sudo apt-get install i2c-tools
+and then either
+sudo i2cdetect -y 0 (for a Revision 1 board like mine)
+or
+sudo i2cdetect -y 1 (for a Revision 2 board)
+then you should see output showing any I2C devices that are attached and their addresses
+
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- --
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- 68 -- -- -- -- -- -- --
+70: -- -- -- -- -- -- -- --
+
+This shows that the Pi has detected the sensor with an address of 0x68 (hexadecimal), this address is needed to interact with it.  Enter the following command and you should get an output of 0x68 on screen if everything is working properly.
+sudo i2cget -y 0 0x68 0x75
+This command talks to the device whose address is 0x68 (the sensor) and retrieves the value in the register 0x75 which has a default value of 0x68 the same value as the address.
