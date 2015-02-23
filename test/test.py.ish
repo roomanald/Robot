@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import time
+import math
 
 class Robot:
   def start(self,brain):
@@ -39,28 +40,25 @@ class Robot:
 class DisplacementProvider:
 	x = 0
 	y = 0
+	previousx = 0
+	previousy = 0
+	direction = 0
+        minDirection = 1
+	maxDirection = 360
         min = 1
 	max = 10
 	def initialise(self):
 		print "DisplacementProvider initailised"
 	def sample(self):
+		self.previousx = self.x
+		self.previousy = self.y
 		f = open('currentlocation','r')
 		items = f.readline().split(",")
 		self.x = int(items[0])
 		self.y = int(items[1])
 		f.close()
+		self.direction = (180/math.pi) - math.atan2(self.previousy - self.y, self.previousx - self.x)
 		
-class DirectionProvider:
-	direction = 0
-        min = 1
-	max = 360
-	def initialise(self):
-		print "DirectionProvider initailised"
-	def sample(self):
-		f = open('currentDirection','r')
-		self.direction = int(f.readline())
-		f.close()
-
 class DistanceProvider:
 	min = 1
 	dist = 0
@@ -90,17 +88,13 @@ class SimpleAreaMappingBrain:
     distanceProvider.initialise();
     displacementProvider = DisplacementProvider();
     displacementProvider.initialise();
-    directionProvider = DirectionProvider();
-    directionProvider.initialise();
-    
+
     while True:
 	time.sleep(0.1)
 	print "sampling displacementProvider"
 	displacementProvider.sample();
 	print "sampling distanceProvider"
 	distanceProvider.sample();
-	print "sampling directionProvider"
-	directionProvider.sample();
 	
 	print "distanceProvider distance is " + str(distanceProvider.dist)
 	if (distanceProvider.dist == distanceProvider.min):
