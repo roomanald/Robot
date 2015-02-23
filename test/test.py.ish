@@ -1,33 +1,103 @@
-class Robot
-  public start(self,brain)
-    brain.start(moveCallback)
-  public stop(self)
-  private moveCallback(direction, amount)
-  
-class BrainBase
-  start(self)#notimplemented
-  stop(self)#notimplemented
-  
-class WiiMoteBrain
-  public start(self, moveCallback)
+#!/usr/bin/python
+import time
+
+class Robot:
+  def start(self,brain):
+    brain.start(self.moveCallback)
+  def moveCallback(self, lhsAmount, rhsAmount):
+	print "moving " + str(lhsAmount)+ ","  + str(rhsAmount) 
+	try:
+		f = open('currentlocation','r+')
+		items = f.readline().split(",")
+		x = int(items[0]) + lhsAmount
+		y = int(items[1]) + rhsAmount
+		location = str(x) + "," + str(y)
+		print "currentLocation updating to " + location
+		f.seek(0)
+		f.write(location)	
+		f.truncate()
+		f.flush()
+		f.close()
+		print "finished writing to file"
+		print "checking values in file"
+		f = open('currentlocation', 'r')
+		print f.read()
+	except IOError as (errno, strerror):
+		print "IO error ({0})".format(errno, strerror)
+	  
+#class BrainBase:
+#  def start(self): 
+#	raise NotImplementedError()
+#  def stop(self):
+#	raise NotImplementedError()
+#  
+#class WiiMoteBrain:
+ # def start(self, moveCallback):
     #wiimote.startListeningToChanges(formatData(moveCallback))
-  public stop(self)
-  private formatData(wiimotedata)
+  #def __formatData__(wiimotedata):
+
+class DisplacementProvider:
+	x = 0
+	y = 0
+	previousx = 0
+	previousy = 0
+	direction = 0
+        min = 1
+	max = 10
+	def initialise(self):
+		print "DisplacementProvider initailised"
+	def sample(self):
+		f = open('currentlocation','r')
+		items = f.readline().split(",")
+		self.x = int(items[0])
+		self.y = int(items[1])
+		f.close()
+
+class DistanceProvider:
+	min = 1
+	dist = 0
+	max = 10
+	def initialise(self):
+		self.map = open('map','r').readlines()
+		print "DistanceProvider initialised"
+	def sample(self):
+		#mocked using current location for now. 
+		f = open('currentlocation', 'r')
+		items =  f.readline().split(",")
+		x = int(items[0])
+		y = int(items[1])
+		print "currentLocation x :" + str(x)
+		print "currentLocation y :"  + str(y)
+		f.close()
+		for offset in range(0,self.max):
+			if (self.map[x][y + offset] == "1"):
+				self.dist = offset
+			 	return
+
+class SimpleAreaMappingBrain:
   
-class AreaMappingBrain
-  previousLocation = (0,0)
-  public start(self, moveCallback)
-    #start distance sensor
-    #start direction sensor
-    #start areaMappingAlgo
-    
-  public stop(self)
-  
-  private onAreaMapper_Step(self, areaMapper)
-    distance = distanceSensor.getDistance();
-    direction = directionSensor.getDirection();
-    storeReadings(distance,direction)
-    nextStep = areaMapper.getNextStep()
-    moveCallback(nextStep)
-    previousLocation.update(nextStep) 
-    
+  def start(self, moveCallback):
+    distanceProvider = DistanceProvider();
+    distanceProvider.initialise();
+    displacementProvider = DisplacementProvider();
+    displacementProvider.initialise();
+
+    while True:
+	time.sleep(0.1)
+	print "sampling displacementProvider"
+	displacementProvider.sample();
+	print "sampling distanceProvider"
+	distanceProvider.sample();
+	
+	print "distanceProvider distance is " + str(distanceProvider.dist)
+	if (distanceProvider.dist == distanceProvider.min):
+		#moveLeft
+		moveCallback(displacemenetProvider.min, 0)
+	else:
+		#moveforward
+		moveCallback(distanceProvider.dist, distanceProvider.dist)
+
+      
+brain = SimpleAreaMappingBrain()
+robot = Robot()
+robot.start(brain)
