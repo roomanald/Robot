@@ -33,9 +33,10 @@ while True:
       count = count + 1
       continue;
       
-      
-   i1 = ImageOps.posterize(ImageOps.equalize(ImageOps.autocontrast(Image.open(fileName).convert("L"))),1).histogram()
-   i2 = ImageOps.posterize(ImageOps.equalize(ImageOps.autocontrast(Image.open(previousFileName).convert("L"))),1).histogram()
+   i_1 = ImageOps.posterize(ImageOps.equalize(ImageOps.autocontrast(Image.open(fileName).convert("L"))),1)
+   i1 = i_1.histogram()
+   i_2 = ImageOps.posterize(ImageOps.equalize(ImageOps.autocontrast(Image.open(previousFileName).convert("L"))),1)
+   i2 = i_2.histogram()
    
 
    # calculate rms
@@ -76,7 +77,7 @@ while True:
          print("Successfully sent email")
       except:
          print("Unexpected error:", sys.exc_info()[0])
-   
+   previousFileName = fileName
    time.sleep(1) 
    count = count + 1
       
