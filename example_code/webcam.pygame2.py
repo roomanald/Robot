@@ -33,14 +33,14 @@ while True:
       continue;
       
       
-   i1 = Image.open(fileName).histogram()
-   i2 = Image.open(previousFileName).histogram()
+   i1 = Image.open(fileName).convert("L").histogram()
+   i2 = Image.open(previousFileName),convert("L").histogram()
    
 
    # calculate rms
    rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a-b)**2, i1, i2))/len(i1))
    print(str(rms))
-   isDiff = rms > 300
+   isDiff = rms > 500
    
    #i1 = Image.open(fileName)
    #i2 = Image.open(previousFileName)
