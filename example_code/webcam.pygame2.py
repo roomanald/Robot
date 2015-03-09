@@ -2,6 +2,7 @@
 import pygame, sys
 from pygame.locals import *
 import pygame.camera
+
 import time
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
@@ -58,8 +59,7 @@ while True:
    
    if (isDiff):
       msg = MIMEMultipart()
-      msg.attach(MIMEImage(file(fileName).read()))
-      msg.add_header("Content-Disposition", "attachment", filename=fileName)
+      msg.attach(MIMEImage(file(fileName).read()),name=os.path.basename(ImgFileName))
       print("read file")
       # to send
       try:
