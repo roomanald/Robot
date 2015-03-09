@@ -59,7 +59,7 @@ while True:
    
    if (isDiff):
       msg = MIMEMultipart()
-      msg.attach(MIMEImage(file(fileName).read()),name=os.path.basename(fileName))
+      msg.attach(MIMEImage(file(fileName).read(),name=os.path.basename(fileName)))
       print("read file")
       # to send
       try:
