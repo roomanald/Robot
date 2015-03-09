@@ -4,6 +4,7 @@ from pygame.locals import *
 import pygame.camera
 import os
 import time
+from scipy import ndimage
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from email.MIMEImage import MIMEImage
@@ -34,8 +35,10 @@ while True:
       continue;
       
    i_1 = ImageOps.posterize(ImageOps.equalize(ImageOps.autocontrast(Image.open(fileName).convert("L"))),1)
+   i_1 = ndimage.gaussian_filter(i_1, 2)
    i1 = i_1.histogram()
    i_2 = ImageOps.posterize(ImageOps.equalize(ImageOps.autocontrast(Image.open(previousFileName).convert("L"))),1)
+   i_2 = ndimage.gaussian_filter(i_2, 2)
    i2 = i_2.histogram()
    
 
