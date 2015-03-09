@@ -28,6 +28,7 @@ while True:
    print("finished taking photo " + fileName)
    if (previousFileName is None):
       previousFileName = fileName
+      count = count + 1
       continue;
       
       
