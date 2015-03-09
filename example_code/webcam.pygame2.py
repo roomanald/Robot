@@ -9,6 +9,7 @@ from email.MIMEImage import MIMEImage
 import smtplib
 from PIL import Image, ImageChops
 import math, operator
+from itertools import izip
 
 pygame.init()
 pygame.camera.init()
@@ -37,9 +38,21 @@ while True:
    # h = ImageChops.difference(image1, image2).histogram()
 
    # calculate rms
-   rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a-b)**2, h1, h2))/len(h1))
-   isDiff = rms > 10000
-   print(str(rms))
+   #rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a-b)**2, h1, h2))/len(h1))
+   #print(str(rms))
+   #isDiff = rms > 10000
+   
+   pairs = izip(i1.getdata(), i2.getdata())
+   if len(i1.getbands()) == 1:
+    # for gray-scale jpegs
+      dif = sum(abs(p1-p2) for p1,p2 in pairs)
+   else:
+      dif = sum(abs(c1-c2) for p1,p2 in pairs for c1,c2 in zip(p1,p2))
+ 
+   ncomponents = i1.size[0] * i1.size[1] * 3
+   percentDiff = (dif / 255.0 * 100) / ncomponents
+   print("Difference (percentage):", percentDiff)
+   isDiff = percentDiff > 20
    
    if (isDiff):
       msg = MIMEMultipart()
