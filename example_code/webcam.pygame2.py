@@ -39,5 +39,5 @@ while True:
       print("Successfully sent email")
    except:
       print("Unexpected error:", sys.exc_info()[0])
-   time.sleep(60) 
+   time.sleep(300) 
    count = count + 1
