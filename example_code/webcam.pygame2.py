@@ -2,7 +2,7 @@
 import pygame, sys
 from pygame.locals import *
 import pygame.camera
-
+import os
 import time
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
