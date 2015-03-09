@@ -58,8 +58,12 @@ while True:
    #isDiff = percentDiff > 2
    
    if (isDiff):
+      im1.save(str(count ) +'_1.jpg')
+      im2.save(str(count ) +'_2.jpg')
       msg = MIMEMultipart()
       msg.attach(MIMEImage(file(fileName).read(),name=os.path.basename(fileName)))
+      msg.attach(MIMEImage(file(str(count ) +'_1.jpg').read(),name=os.path.basename(str(count ) +'_1.jpg')))
+      msg.attach(MIMEImage(file(str(count ) +'_2.jpg').read(),name=os.path.basename(str(count ) +'_2.jpg')))
       print("read file")
       # to send
       try:
