@@ -12,7 +12,7 @@ import math, operator
 
 
 def rmsdiff(im1, im2):
-    "Calculate the root-mean-square difference between two images"
+    print("Calculate the root-mean-square difference between two images")
 
     h = ImageChops.difference(im1, im2).histogram()
 
