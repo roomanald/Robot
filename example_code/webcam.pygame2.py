@@ -16,13 +16,13 @@ width = 1024
 height = 860
 
 while count < 5:
-
    cam = pygame.camera.Camera("/dev/video0",(width,height))
    cam.start()
    image = cam.get_image()
    cam.stop()
    pygame.image.save(image,str(count ) +'.jpg')
    time.sleep(1) 
+   count = count + 1
 
 msg = MIMEMultipart()
 msg.attach(MIMEImage(file("0.jpg").read()))
