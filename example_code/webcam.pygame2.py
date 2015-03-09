@@ -7,7 +7,7 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from email.MIMEImage import MIMEImage
 import smtplib
-import ImageChops
+from PIL import Image, ImageChops
 import math, operator
 
 
