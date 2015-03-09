@@ -28,8 +28,9 @@ msg = MIMEMultipart()
 msg.attach(MIMEImage(file("0.jpg").read()))
 
 # to send
-mailer = smtplib.SMTP()
-mailer.connect()
-mailer.sendmail("ronnie.day@hotmail.co.uk", "ronnie.day@rbccm.com", msg.as_string())
-mailer.close()
+s = smtplib.SMTP('smtp.gmail.com:587')
+s.starttls()
+s.login('ronnie.day1@gmail.com','couxL2G3')
+s.sendmail('ronnie.day@rbccm.com',['ronnie.day@rbccm.com'], msg.as_string())
+
 
