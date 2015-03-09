@@ -38,7 +38,7 @@ while True:
 
    # calculate rms
    rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a-b)**2, h1, h2))/len(h1))
-   isDiff = rms > 100
+   isDiff = rms > 10000
    print(str(rms))
    
    if (isDiff):
@@ -52,7 +52,7 @@ while True:
          s.ehlo()
          s.starttls()
          s.login('ronnie.day1@gmail.com','couxL2G3')
-         s.sendmail('ronnie.day@rbccm.com',['ronnie.day@rbccm.com'], msg.as_string())
+         s.sendmail('ronnie.day@rbccm.com',['ronnie.day@hotmail.co.uk'], msg.as_string())
          s.quit()
          print("Successfully sent email")
       except:
