@@ -10,17 +10,6 @@ import smtplib
 from PIL import Image, ImageChops
 import math, operator
 
-
-def rmsdiff(im1, im2):
-    print("Calculate the root-mean-square difference between two images")
-
-    h = ImageChops.difference(im1, im2).histogram()
-
-    # calculate rms
-    return math.sqrt(reduce(operator.add,
-        map(lambda h, i: h*(i**2), h, range(256))
-    ) / (float(im1.size[0]) * im1.size[1]))
-    
 pygame.init()
 pygame.camera.init()
 
@@ -44,8 +33,13 @@ while True:
       
    image1 = Image.open(fileName)
    image2 = Image.open(previousFileName)
-   
-   isDiff = rmsDiff(image1, image2) > 100
+   h = ImageChops.difference(image1, image2).histogram()
+
+    # calculate rms
+    rms = math.sqrt(reduce(operator.add,
+        map(lambda h, i: h*(i**2), h, range(256))
+    ) / (float(im1.size[0]) * im1.size[1]))
+   isDiff = rms > 100
    
    if (isDiff):
       msg = MIMEMultipart()
