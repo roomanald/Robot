@@ -32,7 +32,7 @@ while True:
       continue;
       
       
-   h1 = Image.open(fileName),histogram()
+   h1 = Image.open(fileName).histogram()
    h2 = Image.open(previousFileName).histogram()
    # h = ImageChops.difference(image1, image2).histogram()
 
