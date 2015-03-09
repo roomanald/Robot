@@ -36,7 +36,7 @@ try:
    s.sendmail('ronnie.day@rbccm.com',['ronnie.day@rbccm.com'], msg.as_string())
    s.quit()
    print "Successfully sent email"
-except SMTPException as e:
-    print "error({0}): {1}".format(e.errno, e.strerror)
+except:
+    print "Unexpected error:", sys.exc_info()[0]
 
 
