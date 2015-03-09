@@ -34,7 +34,7 @@ while True:
       
       
    i1 = Image.open(fileName).convert("L").histogram()
-   i2 = Image.open(previousFileName),convert("L").histogram()
+   i2 = Image.open(previousFileName).convert("L").histogram()
    
 
    # calculate rms
@@ -59,7 +59,7 @@ while True:
    if (isDiff):
       msg = MIMEMultipart()
       msg.attach(MIMEImage(file(fileName).read()))
-
+      nsg.add_header("Content-Disposition", "attachment", filename=fileName)
       print("read file")
       # to send
       try:
