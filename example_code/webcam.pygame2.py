@@ -35,10 +35,10 @@ while True:
       continue;
       
    i_1 = ImageOps.equalize(ImageOps.autocontrast(Image.open(fileName).convert("L")))
-   i_1 = ImageOps.posterize(Image.fromarray(ndimage.gaussian_filter(i_1, 4),"L"),1)
+   i_1 = ImageOps.posterize(Image.fromarray(ndimage.gaussian_filter(i_1, 6),"L"),1)
    i1 = i_1.histogram()
    i_2 = ImageOps.equalize(ImageOps.autocontrast(Image.open(previousFileName).convert("L")))
-   i_2 = ImageOps.posterize(Image.fromarray(ndimage.gaussian_filter(i_2, 4),"L"),1)
+   i_2 = ImageOps.posterize(Image.fromarray(ndimage.gaussian_filter(i_2, 6),"L"),1)
    i2 = i_2.histogram()
    
 
