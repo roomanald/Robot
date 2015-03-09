@@ -28,11 +28,15 @@ msg = MIMEMultipart()
 msg.attach(MIMEImage(file("0.jpg").read()))
 
 # to send
-s = smtplib.SMTP('smtp.gmail.com:587')
-s.ehlo()
-s.starttls()
-s.login('ronnie.day1@gmail.com','couxL2G3')
-s.sendmail('ronnie.day@rbccm.com',['ronnie.day@rbccm.com'], msg.as_string())
-s.quit()
+try:
+   s = smtplib.SMTP('smtp.gmail.com:587')
+   s.ehlo()
+   s.starttls()
+   s.login('ronnie.day1@gmail.com','couxL2G3')
+   s.sendmail('ronnie.day@rbccm.com',['ronnie.day@rbccm.com'], msg.as_string())
+   s.quit()
+   print "Successfully sent email"
+except SMTPException as e:
+    print "error({0}): {1}".format(e.errno, e.strerror)
 
 
