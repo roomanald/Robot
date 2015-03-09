@@ -9,12 +9,14 @@ from email.MIMEImage import MIMEImage
 import smtplib
 
 pygame.init()
-pygame.camera.init
+pygame.camera.init()
 
-count = 0
+count = 0   
+width = 1024
+height = 860
+
 while count < 5:
-   width = 640
-   height = 480
+
    cam = pygame.camera.Camera("/dev/video0",(width,height))
    cam.start()
    image = cam.get_image()
