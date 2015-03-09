@@ -15,8 +15,8 @@ pygame.init()
 pygame.camera.init()
 
 count = 0   
-width = 1024
-height = 860
+width = 320
+height = 240
 previousFileName = None
 
 while True:
@@ -53,7 +53,7 @@ while True:
    ncomponents = i1.size[0] * i1.size[1] * 3
    percentDiff = (dif / 255.0 * 100) / ncomponents
    print("Difference (percentage):", percentDiff)
-   isDiff = percentDiff > 20
+   isDiff = percentDiff > 2
    
    if (isDiff):
       msg = MIMEMultipart()
