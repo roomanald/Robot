@@ -36,10 +36,8 @@ while True:
    image2 = Image.open(previousFileName)
    h = ImageChops.difference(image1, image2).histogram()
 
-    # calculate rms
-    rms = math.sqrt(reduce(operator.add,
-        map(lambda h, i: h*(i**2), h, range(256))
-    ) / (float(im1.size[0]) * im1.size[1]))
+   # calculate rms
+   rms = math.sqrt(reduce(operator.add, map(lambda h, i: h*(i**2), h, range(256))) / (float(im1.size[0]) * im1.size[1]))
    isDiff = rms > 100
    
    if (isDiff):
