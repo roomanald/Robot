@@ -32,5 +32,6 @@ s = smtplib.SMTP('smtp.gmail.com:587')
 s.starttls()
 s.login('ronnie.day1@gmail.com','couxL2G3')
 s.sendmail('ronnie.day@rbccm.com',['ronnie.day@rbccm.com'], msg.as_string())
+s.quit()
 
 
