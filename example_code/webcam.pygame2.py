@@ -24,8 +24,12 @@ while count < 5:
    time.sleep(1) 
    count = count + 1
 
+print "finished taking photos"
+
 msg = MIMEMultipart()
 msg.attach(MIMEImage(file("0.jpg").read()))
+
+print "read file"
 
 # to send
 try:
