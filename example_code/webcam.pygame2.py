@@ -32,9 +32,9 @@ while True:
       continue;
       
       
-   image1 = Image.open(fileName)
-   image2 = Image.open(previousFileName)
-   h = ImageChops.difference(image1, image2).histogram()
+   h1 = Image.open(fileName),histogram()
+   h2 = Image.open(previousFileName).histogram()
+   # h = ImageChops.difference(image1, image2).histogram()
 
    # calculate rms
    rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a-b)**2, h1, h2))/len(h1))
