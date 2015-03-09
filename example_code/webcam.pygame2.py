@@ -59,7 +59,7 @@ while True:
    if (isDiff):
       msg = MIMEMultipart()
       msg.attach(MIMEImage(file(fileName).read()))
-      nsg.add_header("Content-Disposition", "attachment", filename=fileName)
+      msg.add_header("Content-Disposition", "attachment", filename=fileName)
       print("read file")
       # to send
       try:
