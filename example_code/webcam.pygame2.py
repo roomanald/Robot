@@ -40,7 +40,7 @@ while True:
    # calculate rms
    rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a-b)**2, i1, i2))/len(i1))
    print(str(rms))
-   isDiff = rms > 600
+   isDiff = rms > 300
    
    #i1 = Image.open(fileName)
    #i2 = Image.open(previousFileName)
