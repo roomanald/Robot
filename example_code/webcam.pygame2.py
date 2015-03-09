@@ -34,8 +34,8 @@ while True:
       continue;
       
       
-   i1 = ImageOps.posterize(ImageOps.equalize(ImageOps.autocontrast(Image.open(fileName).convert("L"))),2).histogram()
-   i2 = ImageOps.posterize(ImageOps.equalize(ImageOps.autocontrast(Image.open(previousFileName).convert("L"))),2).histogram()
+   i1 = ImageOps.posterize(ImageOps.equalize(ImageOps.autocontrast(Image.open(fileName).convert("L"))),1).histogram()
+   i2 = ImageOps.posterize(ImageOps.equalize(ImageOps.autocontrast(Image.open(previousFileName).convert("L"))),1).histogram()
    
 
    # calculate rms
