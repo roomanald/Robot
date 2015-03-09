@@ -45,7 +45,7 @@ while True:
    # calculate rms
    rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a-b)**2, i1, i2))/len(i1))
    print(str(rms))
-   isDiff = rms > 300
+   isDiff = rms > 330
    
    #i1 = Image.open(fileName)
    #i2 = Image.open(previousFileName)
@@ -66,6 +66,7 @@ while True:
       i_2.save(str(count ) +'_2.jpg')
       msg = MIMEMultipart()
       msg.attach(MIMEImage(file(fileName).read(),name=os.path.basename(fileName)))
+      msg.attach(MIMEImage(file(previousFileName).read(),name=os.path.basename(previousFileName)))
       msg.attach(MIMEImage(file(str(count ) +'_1.jpg').read(),name=os.path.basename(str(count ) +'_1.jpg')))
       msg.attach(MIMEImage(file(str(count ) +'_2.jpg').read(),name=os.path.basename(str(count ) +'_2.jpg')))
       print("read file")
