@@ -24,12 +24,12 @@ while count < 5:
    time.sleep(1) 
    count = count + 1
 
-print "finished taking photos"
+print("finished taking photos")
 
 msg = MIMEMultipart()
 msg.attach(MIMEImage(file("0.jpg").read()))
 
-print "read file"
+print("read file")
 
 # to send
 try:
@@ -39,8 +39,8 @@ try:
    s.login('ronnie.day1@gmail.com','couxL2G3')
    s.sendmail('ronnie.day@rbccm.com',['ronnie.day@rbccm.com'], msg.as_string())
    s.quit()
-   print "Successfully sent email"
+   print("Successfully sent email")
 except:
-    print "Unexpected error:", sys.exc_info()[0]
+    print("Unexpected error:", sys.exc_info()[0])
 
 
