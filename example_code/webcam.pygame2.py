@@ -33,15 +33,16 @@ while True:
       continue;
       
       
-   h1 = Image.open(fileName).histogram()
-   h2 = Image.open(previousFileName).histogram()
+   #h1 = Image.open(fileName).histogram()
+   #h2 = Image.open(previousFileName).histogram()
    # h = ImageChops.difference(image1, image2).histogram()
 
    # calculate rms
    #rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a-b)**2, h1, h2))/len(h1))
    #print(str(rms))
    #isDiff = rms > 10000
-   
+   i1 = Image.open(fileName)
+   i2 = Image.open(previousFileName)
    pairs = izip(i1.getdata(), i2.getdata())
    if len(i1.getbands()) == 1:
     # for gray-scale jpegs
