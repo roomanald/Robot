@@ -8,7 +8,7 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from email.MIMEImage import MIMEImage
 import smtplib
-from PIL import Image, ImageChops
+from PIL import Image, ImageChops, ImageOps
 import math, operator
 from itertools import izip
 
@@ -34,8 +34,8 @@ while True:
       continue;
       
       
-   i1 = Image.open(fileName).convert("L").histogram()
-   i2 = Image.open(previousFileName).convert("L").histogram()
+   i1 = ImageOps.equalize(Image.open(fileName).convert("L")).histogram()
+   i2 = ImageOps.equalize(Image.open(previousFileName).convert("L")).histogram()
    
 
    # calculate rms
