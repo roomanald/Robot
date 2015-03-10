@@ -23,8 +23,13 @@ class App():
     reviousFileName = None
     fileMaxCount = 50
     threshold = 50
-     
-    def __init__(self):
+    self.stdin_path = '/dev/null'
+    self.stdout_path = '/dev/tty'
+    self.stderr_path = '/dev/tty'
+    self.pidfile_path = '/var/run/webcam.pid'
+    self.pidfile_timeout = 5
+    
+	def __init__(self):
         pygame.init()
         pygame.camera.init()
         self.cam = pygame.camera.Camera("/dev/video0",(self.width,self.height))
