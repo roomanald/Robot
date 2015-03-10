@@ -12,9 +12,9 @@ import smtplib
 from PIL import Image, ImageChops, ImageOps
 import math, operator
 from itertools import izip
-import numpy
-import pyaudio
-import analyse
+#import numpy
+#import pyaudio
+#import analyse
 
 #for name in vars(pyaudio): print(name)
 
