@@ -84,6 +84,6 @@ while True:
       except:
          print("Unexpected error:", sys.exc_info()[0])
    previousFileName = fileName
-   time.sleep(1) 
+   #time.sleep(1) 
    count = (count + 1) % fileMaxCount
 cam.stop()
