@@ -20,18 +20,20 @@ count = 0
 width = 320
 height = 240
 previousFileName = None
+fileMaxCount = 50
+threshold = 50
+cam = pygame.camera.Camera("/dev/video0",(width,height))
+cam.start()
+time.sleep(2)#let the camera settle
 
 while True:
-   cam = pygame.camera.Camera("/dev/video0",(width,height))
-   cam.start()
    image = cam.get_image()
-   cam.stop()
-   fileName = str(count ) +'.jpg'
+   fileName = str(count) +'.jpg'
    pygame.image.save(image,fileName)
    print("finished taking photo " + fileName)
    if (previousFileName is None):
       previousFileName = fileName
-      count = count + 1
+      count = (count + 1) % fileMaxCount
       continue;
       
    i_1 = ImageOps.equalize(ImageOps.autocontrast(Image.open(fileName).convert("L")))
@@ -83,5 +85,5 @@ while True:
          print("Unexpected error:", sys.exc_info()[0])
    previousFileName = fileName
    time.sleep(1) 
-   count = count + 1
-      
+   count = (count + 1) % fileMaxCount
+cam.stop()
