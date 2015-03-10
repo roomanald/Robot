@@ -20,7 +20,7 @@ class App():
   count = 0   
   width = 320
   height = 240
-  reviousFileName = None
+  previousFileName = None
 	fileMaxCount = 50
 	threshold = 50
 	self.stdin_path = '/dev/null'
