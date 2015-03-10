@@ -66,24 +66,24 @@ class App():
 				self.count = (self.count + 1) % self.fileMaxCount
 				continue
 
-		i_1 = ImageOps.equalize(ImageOps.autocontrast(Image.open(self.fileName).convert("L")))
-		i_1 = ImageOps.posterize(Image.fromarray(ndimage.gaussian_filter(i_1, 8),"L"),1)
-		i1 = i_1.histogram()
-		i_2 = ImageOps.equalize(ImageOps.autocontrast(Image.open(self.previousFileName).convert("L")))
-		i_2 = ImageOps.posterize(Image.fromarray(ndimage.gaussian_filter(i_2, 8),"L"),1)
-		i2 = i_2.histogram()
-		
-		rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a - b) ** 2, i1, i2)) / len(i1))
-		print(str(rms))
-		isDiff = rms > threshold
+			i_1 = ImageOps.equalize(ImageOps.autocontrast(Image.open(self.fileName).convert("L")))
+			i_1 = ImageOps.posterize(Image.fromarray(ndimage.gaussian_filter(i_1, 8),"L"),1)
+			i1 = i_1.histogram()
+			i_2 = ImageOps.equalize(ImageOps.autocontrast(Image.open(self.previousFileName).convert("L")))
+			i_2 = ImageOps.posterize(Image.fromarray(ndimage.gaussian_filter(i_2, 8),"L"),1)
+			i2 = i_2.histogram()
+			
+			rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a - b) ** 2, i1, i2)) / len(i1))
+			print(str(rms))
+			isDiff = rms > threshold
 
-		if (isDiff):
-			i_1.save(str(self.count) + '_1.jpg')
-			i_2.save(str(self.count) + '_2.jpg')
-			sendmail(self.fileName, self.previousFileName, str(self.count) + '_1.jpg', str(self.count) + '_2.jpg')
-			previousFileName = fileName
-			count = (count + 1) % fileMaxCount
-			cam.stop()
+			if (isDiff):
+				i_1.save(str(self.count) + '_1.jpg')
+				i_2.save(str(self.count) + '_2.jpg')
+				sendmail(self.fileName, self.previousFileName, str(self.count) + '_1.jpg', str(self.count) + '_2.jpg')
+				previousFileName = fileName
+				count = (count + 1) % fileMaxCount
+				cam.stop()
 
 app = App()
 daemon_runner = runner.DaemonRunner(app)
