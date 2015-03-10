@@ -30,6 +30,8 @@ class App():
 		self.stderr_path = '/dev/null'
 		self.pidfile_path = '/var/run/webcam.pid'
 		self.pidfile_timeout = 5
+		self.daemon_context.stdout = open(self.stdout_path, 'a+')
+		
 		pygame.init()
 		pygame.camera.init()
 		self.cam = pygame.camera.Camera("/dev/video0",(self.width,self.height))
@@ -42,7 +44,7 @@ class App():
 		msg.attach(MIMEImage(file(image2).read(),name=os.path.basename(image2)))
 		msg.attach(MIMEImage(file(image1).read(),name=os.path.basename(image1)))
 		msg.attach(MIMEImage(file(image2).read(),name=os.path.basename(image2)))
-		print("read file")
+		sys.stdout.write("read file")
 		# to send
 		try:
 			s = smtplib.SMTP('smtp.gmail.com:587')
@@ -51,16 +53,16 @@ class App():
 			s.login('ronnie.day1@gmail.com','couxL2G3')
 			s.sendmail('ronnie.day@hotmail.co.uk',['ronnie.day@hotmail.co.uk'], msg.as_string())
 			s.quit()
-			print("Successfully sent email")
+			sys.stdout.write("Successfully sent email")
 		except:
-			print("Unexpected error:", sys.exc_info()[0])
+			sys.stdout.write("Unexpected error:", sys.exc_info()[0])
 
 	def run(self):
 		while True:
 			image = self.cam.get_image()
 			self.fileName = str(count) + '.jpg'
 			pygame.image.save(image,self.fileName)
-			print("finished taking photo " + self.fileName)
+			sys.stdout.write("finished taking photo " + self.fileName)
 			if (self.previousFileName is None):
 				self.previousFileName = self.fileName
 				self.count = (self.count + 1) % self.fileMaxCount
@@ -74,7 +76,7 @@ class App():
 			i2 = i_2.histogram()
 			
 			rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a - b) ** 2, i1, i2)) / len(i1))
-			print(str(rms))
+			sys.stdout.write(str(rms))
 			isDiff = rms > threshold
 
 			if (isDiff):
