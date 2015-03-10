@@ -81,5 +81,5 @@ class App():
             cam.stop()
 
 app = App()
-daemon_runner = runner.DeamonRunner(app)
+daemon_runner = runner.DaemonRunner(app)
 daemon_runner.do_action()
