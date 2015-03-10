@@ -31,8 +31,6 @@ class App():
 		self.stderr_path = '/dev/null'
 		self.pidfile_path = '/var/run/webcam.pid'
 		self.pidfile_timeout = 5
-		self.daemon_context.stdout = open(self.stdout_path, 'a+')
-		
 		pygame.init()
 		pygame.camera.init()
 		self.cam = pygame.camera.Camera("/dev/video0",(self.width,self.height))
