@@ -78,7 +78,7 @@ while True:
          s.ehlo()
          s.starttls()
          s.login('ronnie.day1@gmail.com','couxL2G3')
-         s.sendmail('ronnie.day@rbccm.com',['ronnie.day@hotmail.co.uk'], msg.as_string())
+         s.sendmail('ronnie.day@hotmail.co.uk',['ronnie.day@hotmail.co.uk'], msg.as_string())
          s.quit()
          print("Successfully sent email")
       except:
