@@ -17,12 +17,12 @@ from itertools import izip
 from daemon import runner
 
 class App():
-    self.count = 0   
-    self.width = 320
-    self.height = 240
-    selfpreviousFileName = None
-    self.fileMaxCount = 50
-    self.threshold = 50
+    count = 0   
+    width = 320
+    height = 240
+    reviousFileName = None
+    fileMaxCount = 50
+    threshold = 50
      
     def __init__(self):
         pygame.init()
