@@ -17,10 +17,10 @@ from itertools import izip
 from daemon import runner
 
 class App():
-  count = 0   
-  width = 320
-  height = 240
-  previousFileName = None
+	count = 0   
+	width = 320
+	height = 240
+	previousFileName = None
 	fileMaxCount = 50
 	threshold = 50
 	self.stdin_path = '/dev/null'
