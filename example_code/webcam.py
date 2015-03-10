@@ -16,23 +16,23 @@ import numpy
 import pyaudio
 import analyse
 
-for name in vars(pyaudio): print(name)
+#for name in vars(pyaudio): print(name)
 
 pygame.init()
 pygame.camera.init()
 
 
 # Initialize PyAudio
-pyaud = pyaudio.PyAudio()
+#pyaud = pyaudio.PyAudio()
 
 # Open input stream, 16-bit mono at 44100 Hz
 # On my system, device 4 is a USB microphone
-stream = pyaud.open(
-    format = pyaudio.paInt16,
-    channels = 1,
-    rate = 44100,
-    input_device_index = 2,
-    input = True)
+#stream = pyaud.open(
+#    format = pyaudio.paInt16,
+#    channels = 1,
+#    rate = 44100,
+#    input_device_index = 2,
+#    input = True)
 
 
 count = 0   
@@ -47,11 +47,11 @@ time.sleep(2)#let the camera settle
 
 while True:
    # Read raw microphone data
-   rawsamps = stream.read(1024)
+   #rawsamps = stream.read(1024)
    # Convert raw data to NumPy array
-   samps = numpy.fromstring(rawsamps, dtype=numpy.int16)
+   #samps = numpy.fromstring(rawsamps, dtype=numpy.int16)
    # Show the volume and pitch
-   print("loudness : " + analyse.loudness(samps) + "pitch : " + analyse.musical_detect_pitch(samps))
+   #print("loudness : " + analyse.loudness(samps) + "pitch : " + analyse.musical_detect_pitch(samps))
    
    image = cam.get_image()
    fileName = str(count) +'.jpg'
