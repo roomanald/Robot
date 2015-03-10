@@ -16,8 +16,11 @@ import numpy
 import pyaudio
 import analyse
 
+for name in vars(pyaudio): print(name)
+
 pygame.init()
 pygame.camera.init()
+
 
 # Initialize PyAudio
 pyaud = pyaudio.PyAudio()
