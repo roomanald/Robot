@@ -12,15 +12,25 @@ import smtplib
 from PIL import Image, ImageChops, ImageOps
 import math, operator
 from itertools import izip
+from daemon import runner
 #import numpy
 #import pyaudio
 #import analyse
 
 #for name in vars(pyaudio): print(name)
 
-pygame.init()
-pygame.camera.init()
-
+class App():
+   
+   def __init__(self):
+      pygame.init()
+      pygame.camera.init()
+      
+      previousFileName = None
+      fileMaxCount = 50
+      threshold = 50
+      cam = pygame.camera.Camera("/dev/video0",(width,height))
+      cam.start()
+      time.sleep(2)#let the camera settle
 
 # Initialize PyAudio
 #pyaud = pyaudio.PyAudio()
@@ -35,15 +45,7 @@ pygame.camera.init()
 #    input = True)
 
 
-count = 0   
-width = 320
-height = 240
-previousFileName = None
-fileMaxCount = 50
-threshold = 50
-cam = pygame.camera.Camera("/dev/video0",(width,height))
-cam.start()
-time.sleep(2)#let the camera settle
+
 
 while True:
    # Read raw microphone data
