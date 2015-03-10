@@ -26,8 +26,8 @@ class App():
 
 	def __init__(self):
 		self.stdin_path = '/dev/null'
-		self.stdout_path = '/dev/tty'
-		self.stderr_path = '/dev/tty'
+		self.stdout_path = '/home/pi/robot/example_code/log'
+		self.stderr_path = '/dev/null'
 		self.pidfile_path = '/var/run/webcam.pid'
 		self.pidfile_timeout = 5
 		pygame.init()
