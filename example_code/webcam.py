@@ -15,6 +15,7 @@ import math
 import operator
 from itertools import izip
 from daemon import runner
+import logging
 
 class App():
 	count = 0   
@@ -44,7 +45,7 @@ class App():
 		msg.attach(MIMEImage(file(image2).read(),name=os.path.basename(image2)))
 		msg.attach(MIMEImage(file(image1).read(),name=os.path.basename(image1)))
 		msg.attach(MIMEImage(file(image2).read(),name=os.path.basename(image2)))
-		sys.stdout.write("read file")
+		logger.info("read file")
 		# to send
 		try:
 			s = smtplib.SMTP('smtp.gmail.com:587')
@@ -53,16 +54,16 @@ class App():
 			s.login('ronnie.day1@gmail.com','couxL2G3')
 			s.sendmail('ronnie.day@hotmail.co.uk',['ronnie.day@hotmail.co.uk'], msg.as_string())
 			s.quit()
-			sys.stdout.write("Successfully sent email")
+			logger.info("Successfully sent email")
 		except:
-			sys.stdout.write("Unexpected error:", sys.exc_info()[0])
+			logger.info("Unexpected error:", sys.exc_info()[0])
 
 	def run(self):
 		while True:
 			image = self.cam.get_image()
 			self.fileName = str(count) + '.jpg'
 			pygame.image.save(image,self.fileName)
-			sys.stdout.write("finished taking photo " + self.fileName)
+			logger.info("finished taking photo " + self.fileName)
 			if (self.previousFileName is None):
 				self.previousFileName = self.fileName
 				self.count = (self.count + 1) % self.fileMaxCount
@@ -76,7 +77,7 @@ class App():
 			i2 = i_2.histogram()
 			
 			rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a - b) ** 2, i1, i2)) / len(i1))
-			sys.stdout.write(str(rms))
+			logger.info(str(rms))
 			isDiff = rms > threshold
 
 			if (isDiff):
@@ -88,7 +89,12 @@ class App():
 				cam.stop()
 
 app = App()
+logger = logging.getLogger("WebCam")
+logger.setLevel(logging.INFO)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+handler = logging.FileHandler("/home/pi/robot/example_code/webcam.log")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 daemon_runner = runner.DaemonRunner(app)
+daemon_runner.daemon_context.files_preserve=[handler.stream]
 daemon_runner.do_action()
-
-			
