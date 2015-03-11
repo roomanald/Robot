@@ -16,6 +16,7 @@ import operator
 from itertools import izip
 from daemon import runner
 import logging
+import logging.handlers
 import traceback
 from threading import Thread
 
@@ -104,7 +105,7 @@ try:
 	logger = logging.getLogger("WebCam")
 	logger.setLevel(logging.INFO)
 	formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-	handler = logging.FileHandler("/home/pi/robot/example_code/webcam.log")
+	handler = logging.handlers.RotatingFileHandler("/home/pi/robot/example_code/webcam.log", maxBytes=100000, backupCount=2)
 	handler.setFormatter(formatter)
 	logger.addHandler(handler)
 	print ("created logger")
