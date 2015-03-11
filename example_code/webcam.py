@@ -30,7 +30,7 @@ class App():
 
 	def sendMail(self, image1, image2, image3, image4, rms, averageRms):
 		msg = MIMEMultipart()
-		msg['Subject'] = 'Intruder!! rms: ' + rms + ' averageRms : ' averageRms 
+		msg['Subject'] = 'Intruder!! rms: ' + rms + ' averageRms : ' + averageRms 
 		msg.attach(MIMEImage(file(image1).read(),name=os.path.basename(image1)))
 		msg.attach(MIMEImage(file(image2).read(),name=os.path.basename(image2)))
 		msg.attach(MIMEImage(file(image3).read(),name=os.path.basename(image3)))
