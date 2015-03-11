@@ -32,7 +32,7 @@ class App():
 		msg.attach(MIMEImage(file(image2).read(),name=os.path.basename(image2)))
 		msg.attach(MIMEImage(file(image1).read(),name=os.path.basename(image1)))
 		msg.attach(MIMEImage(file(image2).read(),name=os.path.basename(image2)))
-		logger.info("read file")
+		print("attached files for email")
 		# to send
 		try:
 			s = smtplib.SMTP('smtp.gmail.com:587')
@@ -41,9 +41,9 @@ class App():
 			s.login('ronnie.day1@gmail.com','couxL2G3')
 			s.sendmail('ronnie.day@hotmail.co.uk',['ronnie.day@hotmail.co.uk'], msg.as_string())
 			s.quit()
-			logger.info("Successfully sent email")
+			print("Successfully sent email")
 		except:
-			logger.info("Unexpected error:", sys.exc_info()[0])
+			print("Unexpected error:", sys.exc_info()[0])
 
 	def run(self):
 		count = 0   
@@ -63,7 +63,7 @@ class App():
 			image = cam.get_image()
 			fileName = str(count) + '.jpg'
 			pygame.image.save(image,fileName)
-			logger.info("finished taking photo " + fileName)
+			print("finished taking photo " + fileName)
 			if (previousFileName is None):
 				previousFileName = fileName
 				count = (count + 1) % fileMaxCount
@@ -77,7 +77,7 @@ class App():
 			i2 = i_2.histogram()
 			
 			rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a - b) ** 2, i1, i2)) / len(i1))
-			logger.info(str(rms))
+			print(str(rms))
 			isDiff = rms > threshold
 
 			if (isDiff):
