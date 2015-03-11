@@ -51,7 +51,6 @@ class App():
 		height = 240
 		previousFileName = None
 		fileMaxCount = 50
-		threshold = 50
 		print("runner started")
 		pygame.init()
 		pygame.camera.init()
@@ -59,11 +58,15 @@ class App():
 		cam.start()
 		time.sleep(2)#let the camera settle
 		print("camera started")
+		rmsQueue = [50]
+		rmsQueueMax = 100
+		
 		while True:
 			image = cam.get_image()
 			fileName = str(count) + '.jpg'
 			pygame.image.save(image,fileName)
-			print("finished taking photo " + fileName)
+			imagesTaken +=1
+			#print("finished taking photo " + fileName)
 			if (previousFileName is None):
 				previousFileName = fileName
 				count = (count + 1) % fileMaxCount
@@ -77,8 +80,12 @@ class App():
 			i2 = i_2.histogram()
 			
 			rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a - b) ** 2, i1, i2)) / len(i1))
-			print(str(rms))
-			isDiff = rms > threshold
+			rmsQueue.insert(0,rms)
+			if (len(rmsQueue) > rmsQueueMax):
+				rmsQueue.pop(0)
+			averageRms = sum(rmsQueue) / len(rmsQueue)
+			#print(str(rms))
+			isDiff = rms > (averageRms * 2)
 
 			if (isDiff):
 				i_1.save(str(count) + '_1.jpg')
