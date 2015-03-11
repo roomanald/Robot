@@ -66,7 +66,6 @@ class App():
 			image = cam.get_image()
 			fileName = str(count) + '.jpg'
 			pygame.image.save(image,fileName)
-			imagesTaken +=1
 			#print("finished taking photo " + fileName)
 			if (previousFileName is None):
 				previousFileName = fileName
