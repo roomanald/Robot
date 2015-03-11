@@ -31,8 +31,8 @@ class App():
 		msg = MIMEMultipart()
 		msg.attach(MIMEImage(file(image1).read(),name=os.path.basename(image1)))
 		msg.attach(MIMEImage(file(image2).read(),name=os.path.basename(image2)))
-		msg.attach(MIMEImage(file(image1).read(),name=os.path.basename(image1)))
-		msg.attach(MIMEImage(file(image2).read(),name=os.path.basename(image2)))
+		msg.attach(MIMEImage(file(image3).read(),name=os.path.basename(image3)))
+		msg.attach(MIMEImage(file(image4).read(),name=os.path.basename(image4)))
 		print("attached files for email")
 		# to send
 		try:
