@@ -84,7 +84,7 @@ class App():
 			if (len(rmsQueue) > rmsQueueMax):
 				rmsQueue.pop(0)
 			averageRms = sum(rmsQueue) / len(rmsQueue)
-			#print(str(rms))
+			print("current rms :" + str(rms) + "average rms:" + str(averageRms))
 			isDiff = rms > (averageRms * 2)
 
 			if (isDiff):
