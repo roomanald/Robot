@@ -27,7 +27,7 @@ class App():
 
 	def __init__(self):
 		self.stdin_path = '/dev/null'
-		self.stdout_path = '/home/pi/robot/example_code/log'
+		self.stdout_path = '/dev/null'
 		self.stderr_path = '/dev/null'
 		self.pidfile_path = '/var/run/webcam.pid'
 		self.pidfile_timeout = 5
@@ -82,9 +82,9 @@ class App():
 				i_1.save(str(self.count) + '_1.jpg')
 				i_2.save(str(self.count) + '_2.jpg')
 				sendmail(self.fileName, self.previousFileName, str(self.count) + '_1.jpg', str(self.count) + '_2.jpg')
-				previousFileName = fileName
-				count = (count + 1) % fileMaxCount
-				cam.stop()
+			previousFileName = fileName
+			count = (count + 1) % fileMaxCount
+			#cam.stop()
 
 
 app = App()
