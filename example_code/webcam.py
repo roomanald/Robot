@@ -17,6 +17,7 @@ from itertools import izip
 from daemon import runner
 import logging
 import traceback
+from threading import Thread
 
 class App():
 
@@ -90,7 +91,8 @@ class App():
 			if (isDiff):
 				i_1.save(str(count) + '_1.jpg')
 				i_2.save(str(count) + '_2.jpg')
-				self.sendMail(fileName, previousFileName, str(count) + '_1.jpg', str(count) + '_2.jpg')
+				t = Thread(target=self.sendMail, args =[fileName, previousFileName, str(count) + '_1.jpg', str(count) + '_2.jpg'])
+				t.start()
 			previousFileName = fileName
 			count = (count + 1) % fileMaxCount
 			#cam.stop()
