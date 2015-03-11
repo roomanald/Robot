@@ -90,7 +90,7 @@ class App():
 			if (isDiff):
 				i_1.save(str(count) + '_1.jpg')
 				i_2.save(str(count) + '_2.jpg')
-				self.sendMail(fileName, previousFileName, str(count) + '_1.jpg', str(selcount) + '_2.jpg')
+				self.sendMail(fileName, previousFileName, str(count) + '_1.jpg', str(count) + '_2.jpg')
 			previousFileName = fileName
 			count = (count + 1) % fileMaxCount
 			#cam.stop()
