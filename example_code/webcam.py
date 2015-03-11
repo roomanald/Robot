@@ -86,7 +86,7 @@ class App():
 				rmsQueue.pop(len(rmsQueue)-1)
 			averageRms = sum(rmsQueue) / len(rmsQueue)
 			print("current rms :" + str(rms) + "average rms:" + str(averageRms))
-			isDiff = rms > (averageRms * 4)
+			isDiff = rms > (averageRms * 5)
 
 			if (isDiff):
 				i_1.save(str(count) + '_1.jpg')
