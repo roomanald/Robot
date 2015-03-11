@@ -16,6 +16,7 @@ import operator
 from itertools import izip
 from daemon import runner
 import logging
+import traceback
 
 class App():
 
@@ -43,7 +44,7 @@ class App():
 			s.quit()
 			print("Successfully sent email")
 		except:
-			print("Unexpected error:", sys.exc_info()[0])
+			print(traceback.format_exc())
 
 	def run(self):
 		count = 0   
@@ -109,4 +110,4 @@ try:
 	daemon_runner.daemon_context.files_preserve=[handler.stream]
 	daemon_runner.do_action()
 except:
-	print("Unexpected error:", sys.exc_info()[0])
+	print(traceback.format_exc())
