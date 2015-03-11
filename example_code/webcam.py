@@ -86,13 +86,17 @@ class App():
 				count = (count + 1) % fileMaxCount
 				cam.stop()
 
+
 app = App()
+print("created app")
 logger = logging.getLogger("WebCam")
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler = logging.FileHandler("/home/pi/robot/example_code/webcam.log")
 handler.setFormatter(formatter)
 logger.addHandler(handler)
+print ("created logger")
 daemon_runner = runner.DaemonRunner(app)
 daemon_runner.daemon_context.files_preserve=[handler.stream]
 daemon_runner.do_action()
+print ("runner started")
