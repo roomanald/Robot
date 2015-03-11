@@ -31,11 +31,6 @@ class App():
 		self.stderr_path = '/home/pi/robot/example_code/webcam.err'
 		self.pidfile_path = '/var/run/webcam.pid'
 		self.pidfile_timeout = 5
-		pygame.init()
-		pygame.camera.init()
-		self.cam = pygame.camera.Camera("/dev/video0",(self.width,self.height))
-		self.cam.start()
-		time.sleep(2)#let the camera settle
 
 	def sendMail(self, image1, image2, image3, image4):
 		msg = MIMEMultipart()
@@ -58,6 +53,12 @@ class App():
 
 	def run(self):
 		print("runner started")
+		pygame.init()
+		pygame.camera.init()
+		self.cam = pygame.camera.Camera("/dev/video0",(self.width,self.height))
+		self.cam.start()
+		time.sleep(2)#let the camera settle
+		print("camera started")
 		while True:
 			image = self.cam.get_image()
 			self.fileName = str(count) + '.jpg'
