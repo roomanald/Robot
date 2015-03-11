@@ -57,6 +57,7 @@ class App():
 			logger.info("Unexpected error:", sys.exc_info()[0])
 
 	def run(self):
+		print("runner started")
 		while True:
 			image = self.cam.get_image()
 			self.fileName = str(count) + '.jpg'
@@ -99,4 +100,3 @@ print ("created logger")
 daemon_runner = runner.DaemonRunner(app)
 daemon_runner.daemon_context.files_preserve=[handler.stream]
 daemon_runner.do_action()
-print ("runner started")
