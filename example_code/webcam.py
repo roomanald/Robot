@@ -28,8 +28,9 @@ class App():
 		self.pidfile_path = '/var/run/webcam.pid'
 		self.pidfile_timeout = 5
 
-	def sendMail(self, image1, image2, image3, image4):
+	def sendMail(self, image1, image2, image3, image4, rms, averageRms):
 		msg = MIMEMultipart()
+		msg['Subject'] = 'Intruder!! rms: ' + rms + ' averageRms : ' averageRms 
 		msg.attach(MIMEImage(file(image1).read(),name=os.path.basename(image1)))
 		msg.attach(MIMEImage(file(image2).read(),name=os.path.basename(image2)))
 		msg.attach(MIMEImage(file(image3).read(),name=os.path.basename(image3)))
@@ -86,12 +87,12 @@ class App():
 				rmsQueue.pop(len(rmsQueue)-1)
 			averageRms = sum(rmsQueue) / len(rmsQueue)
 			print("current rms :" + str(rms) + "average rms:" + str(averageRms))
-			isDiff = rms > (averageRms * 5)
+			isDiff = rms > (averageRms * 10)
 
 			if (isDiff):
 				i_1.save(str(count) + '_1.jpg')
 				i_2.save(str(count) + '_2.jpg')
-				t = Thread(target=self.sendMail, args =[fileName, previousFileName, str(count) + '_1.jpg', str(count) + '_2.jpg'])
+				t = Thread(target=self.sendMail, args =[fileName, previousFileName, str(count) + '_1.jpg', str(count) + '_2.jpg', rms, averageRms])
 				t.start()
 			previousFileName = fileName
 			count = (count + 1) % fileMaxCount
