@@ -83,7 +83,7 @@ class App():
 			rms = math.sqrt(reduce(operator.add,map(lambda a,b: (a - b) ** 2, i1, i2)) / len(i1))
 			rmsQueue.insert(0,rms)
 			if (len(rmsQueue) > rmsQueueMax):
-				rmsQueue.pop(0)
+				rmsQueue.pop(len(rmsQueue)-1)
 			averageRms = sum(rmsQueue) / len(rmsQueue)
 			print("current rms :" + str(rms) + "average rms:" + str(averageRms))
 			isDiff = rms > (averageRms * 4)
