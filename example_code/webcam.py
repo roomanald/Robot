@@ -63,7 +63,7 @@ class App():
 		time.sleep(2)#let the camera settle
 		print("camera started")
 		rmsQueue = [50]
-		rmsQueueMax = 100
+		rmsQueueMax = 50
 		
 		while True:
 			image = cam.get_image()
@@ -88,7 +88,7 @@ class App():
 				rmsQueue.pop(len(rmsQueue)-1)
 			averageRms = sum(rmsQueue) / len(rmsQueue)
 			print("current rms :" + str(rms) + "average rms:" + str(averageRms))
-			isDiff = rms > (averageRms * 6)
+			isDiff = rms > (averageRms * 8)
 
 			if (isDiff):
 				i_1.save(str(count) + '_1.jpg')
