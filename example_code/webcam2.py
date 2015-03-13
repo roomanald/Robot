@@ -24,11 +24,33 @@ class App():
 
 	def __init__(self):
 		self.stdin_path = '/dev/null'
-		self.stdout_path = '/home/pi/robot/example_code/webcam.out'
-		self.stderr_path = '/home/pi/robot/example_code/webcam.err'
-		self.pidfile_path = '/var/run/webcam.pid'
+		self.stdout_path = '/home/pi/robot/example_code/webcam2.out'
+		self.stderr_path = '/home/pi/robot/example_code/webcam2.err'
+		self.pidfile_path = '/var/run/webcam2.pid'
 		self.pidfile_timeout = 5
 		
+	def sendMail(self, image, background, thresholded, diffAmount):
+		pygame.image.save(image, "image.jpg")
+		pygame.image.save(background, "background.jpg")
+		pygame.image.save(thresholded, "thresholded.jpg")
+		msg = MIMEMultipart()
+		msg['Subject'] = 'Intruder - (' + diffAmount + ')' 
+		msg.attach(MIMEImage(file("image.jpg").read(),name=os.path.basename(image1)))
+		msg.attach(MIMEImage(file("background.jpg").read(),name=os.path.basename(image2)))
+		msg.attach(MIMEImage(file("thresholded.jpg").read(),name=os.path.basename(image3)))
+		print("attached files for email")
+		# to send
+		try:
+			s = smtplib.SMTP('smtp.gmail.com:587')
+			s.ehlo()
+			s.starttls()
+			s.login('ronnie.day1@gmail.com','couxL2G3')
+			s.sendmail('ronnie.day@hotmail.co.uk',['ronnie.day@hotmail.co.uk'], msg.as_string())
+			s.quit()
+			print("Successfully sent email")
+		except:
+			print(traceback.format_exc())
+			
 	def run(self):
 		count = 0   
 		size = (320,240)
@@ -55,8 +77,9 @@ class App():
 			isDiff = diff > 100
 
 			if (isDiff):
-			  print("is Diff by " + diff)
-				
+				t = Thread(target=self.sendMail, args =[image, background, thresholded, diff])
+				t.start()
+			  
 			#cam.stop()
 			bg.pop(0)
 			bg.append(image)
