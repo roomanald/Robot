@@ -79,12 +79,10 @@ class App():
 			if (isDiff):
 				t = Thread(target=self.sendMail, args =[image, background, thresholded, diff])
 				t.start()
-			  
-			#cam.stop()
-			bg.pop(0)
-			bg.append(image)
-			
-			
+			else #dont allow images that are "different" to contribute to background collection. 
+				bg.pop(0)
+				bg.append(image)
+		#cam.stop()
 
 try:
 	app = App()
