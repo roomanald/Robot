@@ -75,6 +75,7 @@ class App():
 			background = pygame.transform.average_surfaces(bg)
 		
 			diff = pygame.transform.threshold(thresholded,image,(0,255,0),(30,30,30),(0,0,0),1,background)
+			print("diff " + str(diff))
 			isDiff = diff > 100
 
 			if (isDiff):
