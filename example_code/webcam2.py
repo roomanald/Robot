@@ -41,7 +41,7 @@ class App():
 		print("camera started")
 		bgSamples = 5
 		bg = []
-		thresholded = pygame.surface.Surface(size, 0, self.display)
+		thresholded = pygame.surface.Surface(size)
 		
 		while True:
 			image = cam.get_image()
