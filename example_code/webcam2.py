@@ -67,6 +67,7 @@ class App():
 		
 		while True:
 			image = cam.get_image()
+			print("got image")
       			if (bg != bgSamples):
 			  bg.append(image)
 			  continue;
