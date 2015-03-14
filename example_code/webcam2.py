@@ -68,13 +68,14 @@ class App():
 		while True:
 			image = cam.get_image()
 			print("got image")
-      			if (bg != bgSamples):
+      			if (len(bg) != bgSamples):
 			  bg.append(image)
 			  continue;
 			
 			background = pygame.transform.average_surfaces(bg)
 		
-			diff = pygame.transform.threshold(thresholded,image,(0,255,0),(30,30,30),(0,0,0),1,background)
+			similarPixels = pygame.transform.threshold(thresholded,image,(0,255,0),(30,30,30),(0,0,0),1,background)
+			diff = size[0]*size[1] - similarPixels
 			print("diff " + str(diff))
 			isDiff = diff > 100
 
