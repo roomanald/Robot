@@ -22,12 +22,13 @@ from threading import Thread
 
 class App():
 
-	def __init__(self):
+	def __init__(self, logger):
 		self.stdin_path = '/dev/null'
 		self.stdout_path = '/home/pi/robot/example_code/webcam2.out'
 		self.stderr_path = '/home/pi/robot/example_code/webcam2.err'
 		self.pidfile_path = '/var/run/webcam2.pid'
 		self.pidfile_timeout = 5
+		self.logger = logger
 		
 	def sendMail(self, image, background, thresholded, diffAmount):
 		pygame.image.save(image, "image.jpg")
@@ -38,7 +39,7 @@ class App():
 		msg.attach(MIMEImage(file("image.jpg").read(),name=os.path.basename(image1)))
 		msg.attach(MIMEImage(file("background.jpg").read(),name=os.path.basename(image2)))
 		msg.attach(MIMEImage(file("thresholded.jpg").read(),name=os.path.basename(image3)))
-		print("attached files for email")
+		self.logger.debug("attached files for email")
 		# to send
 		try:
 			s = smtplib.SMTP('smtp.gmail.com:587')
@@ -47,23 +48,24 @@ class App():
 			s.login('ronnie.day1@gmail.com','couxL2G3')
 			s.sendmail('ronnie.day@hotmail.co.uk',['ronnie.day@hotmail.co.uk'], msg.as_string())
 			s.quit()
-			print("Successfully sent email")
+			self.logger.info("Successfully sent email")
 		except:
-			print(traceback.format_exc())
+			self.logger.error(traceback.format_exc())
 			
 	def run(self):
 		count = 0   
 		size = (320,240)
-		print("runner started")
+		self.logger.info("runner started")
 		pygame.init()
 		pygame.camera.init()
 		cam = pygame.camera.Camera("/dev/video0",size)
 		cam.start()
 		time.sleep(2)#let the camera settle
-		print("camera started")
+		self.logger.info("camera started")
 		bgSamples = 20
 		bg = []
 		thresholded = pygame.surface.Surface(size)
+		pixelDiffThreshold = 100
 		
 		while True:
 			image = cam.get_image()
@@ -75,10 +77,12 @@ class App():
 		
 			similarPixels = pygame.transform.threshold(thresholded,image,(0,255,0),(30,30,30),(0,0,0),1,background)
 			diff = size[0]*size[1] - similarPixels
-			isDiff = diff > 100
-
+			isDiff = diff > pixelDiffThreshold
+			
+			self.logger.debug("diff " + str(diff))
+			
 			if (isDiff):
-				print("diff " + str(diff))
+				self.logger.info("diff greater than threshold " + str(pixelDiffThreshold))
 				t = Thread(target=self.sendMail, args =[image, background, thresholded, diff])
 				t.start()
 				
@@ -88,8 +92,7 @@ class App():
 		#cam.stop()
 
 try:
-	app = App()
-	print("created app")
+
 	logger = logging.getLogger("WebCam")
 	logger.setLevel(logging.INFO)
 	formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -97,7 +100,8 @@ try:
 	handler.setFormatter(formatter)
 	logger.addHandler(handler)
 	print ("created logger")
-	logger.warning("logger is finally logging")
+	app = App(logger)
+	logger.info("created app")
 	daemon_runner = runner.DaemonRunner(app)
 	daemon_runner.daemon_context.files_preserve=[handler.stream]
 	daemon_runner.do_action()
