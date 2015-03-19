@@ -31,14 +31,14 @@ class App():
 		self.logger = logger
 		
 	def sendMail(self, image, background, thresholded, diffAmount):
-		pygame.image.save(image, "image.jpg")
-		pygame.image.save(background, "background.jpg")
-		pygame.image.save(thresholded, "thresholded.jpg")
+		#pygame.image.save(image, "image.jpg")
+		#pygame.image.save(background, "background.jpg")
+		#pygame.image.save(thresholded, "thresholded.jpg")
 		msg = MIMEMultipart()
 		msg['Subject'] = 'Intruder - (' + str(diffAmount) + ')' 
-		msg.attach(MIMEImage(file("image.jpg").read(),name="image.jpg"))
-		msg.attach(MIMEImage(file("background.jpg").read(),name="background.jpg"))
-		msg.attach(MIMEImage(file("thresholded.jpg").read(),name="thresholded.jpg"))
+		msg.attach(MIMEImage(pygame.image.tostring(image),name="image.jpg"))
+		msg.attach(MIMEImage(pygame.image.tostring(background),name="background.jpg"))
+		msg.attach(MIMEImage(pygame.image.tostring(thresholded),name="thresholded.jpg"))
 		self.logger.debug("attached files for email")
 		# to send
 		try:
