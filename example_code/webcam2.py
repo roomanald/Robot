@@ -36,9 +36,9 @@ class App():
 		#pygame.image.save(thresholded, "thresholded.jpg")
 		msg = MIMEMultipart()
 		msg['Subject'] = 'Intruder - (' + str(diffAmount) + ')' 
-		msg.attach(MIMEImage(pygame.image.tostring(image),name="image.jpg"))
-		msg.attach(MIMEImage(pygame.image.tostring(background),name="background.jpg"))
-		msg.attach(MIMEImage(pygame.image.tostring(thresholded),name="thresholded.jpg"))
+		msg.attach(MIMEImage(pygame.image.tostring(image,"RGB"),name="image.jpg"))
+		msg.attach(MIMEImage(pygame.image.tostring(background,"RGB"),name="background.jpg"))
+		msg.attach(MIMEImage(pygame.image.tostring(thresholded,"RGB"),name="thresholded.jpg"))
 		self.logger.debug("attached files for email")
 		# to send
 		try:
