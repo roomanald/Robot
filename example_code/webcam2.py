@@ -73,15 +73,6 @@ class App():
 			self.logger.error(traceback.format_exc())
 		
 	def run(self):
-		# Initialize PyAudio
-		pyaud = pyaudio.PyAudio()
-		# Open input stream, 16-bit mono at 44100 Hz
-		stream = pyaud.open(
-			format = pyaudio.paInt16,
-			channels = 1,
-			rate = 44100,
-			input = True)
-			
 		count = 0   
 		size = (320,240)
 		self.logger.info("runner started")
@@ -97,7 +88,15 @@ class App():
 		pixelDiffThreshold = 1000
 		bgVolume = []
 		volumeDiffThreshold = 200
-		
+		# Initialize PyAudio
+		pyaud = pyaudio.PyAudio()
+		# Open input stream, 16-bit mono at 44100 Hz
+		stream = pyaud.open(
+			format = pyaudio.paInt16,
+			channels = 1,
+			rate = 44100,
+			input = True)
+			
 		while True:
 			image = cam.get_image()
 			
