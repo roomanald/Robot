@@ -94,7 +94,7 @@ class App():
 try:
 
 	logger = logging.getLogger("WebCam")
-	logger.setLevel(logging.INFO)
+	logger.setLevel(logging.DEBUG)
 	formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 	handler = logging.handlers.RotatingFileHandler("/home/pi/robot/example_code/webcam.log", maxBytes=100000, backupCount=2)
 	handler.setFormatter(formatter)
