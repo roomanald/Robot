@@ -34,6 +34,7 @@ class App():
 		self.pidfile_path = '/var/run/webcam2.pid'
 		self.pidfile_timeout = 5
 		self.logger = logger
+		self.issmtpsetup = False
 		
 	def sendMail(self, image, background, thresholded, diffAmount, volume):
 		#pygame.image.save(image, "image.jpg")
