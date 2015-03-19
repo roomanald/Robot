@@ -19,6 +19,7 @@ import logging
 import logging.handlers
 import traceback
 from threading import Thread
+import cStringIO
 
 class App():
 
