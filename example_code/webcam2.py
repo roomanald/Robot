@@ -34,11 +34,26 @@ class App():
 		#pygame.image.save(image, "image.jpg")
 		#pygame.image.save(background, "background.jpg")
 		#pygame.image.save(thresholded, "thresholded.jpg")
+		imstring = pygame.image.tostring(image,"RGB")
+		im = Image.fromstring("RGB", (320,240), imstring)
+		memfim = cStringIO.StringIO()
+		im.save(memfim, "JPEG")
+		
+		bgstring = pygame.image.tostring(background,"RGB")
+		bg = Image.fromstring("RGB", (320,240), bgstring)
+		memfbg = cStringIO.StringIO()
+		bg.save(memfbg, "JPEG")
+		
+		tstring = pygame.image.tostring(thresholded,"RGB")
+		t = Image.fromstring("RGB", (320,240), tstring)
+		memft = cStringIO.StringIO()
+		bg.save(memft, "JPEG")
+		
 		msg = MIMEMultipart()
 		msg['Subject'] = 'Intruder - (' + str(diffAmount) + ')' 
-		msg.attach(MIMEImage(pygame.image.tostring(image,"RGB"),name="image.jpg"))
-		msg.attach(MIMEImage(pygame.image.tostring(background,"RGB"),name="background.jpg"))
-		msg.attach(MIMEImage(pygame.image.tostring(thresholded,"RGB"),name="thresholded.jpg"))
+		msg.attach(MIMEImage(memfim.getvalue(),name="image.jpg"))
+		msg.attach(MIMEImage(mefbg.getvalue(),name="background.jpg"))
+		msg.attach(MIMEImage(memft.getvalue(),name="thresholded.jpg"))
 		self.logger.debug("attached files for email")
 		# to send
 		try:
@@ -65,7 +80,7 @@ class App():
 		bgSamples = 20
 		bg = []
 		thresholded = pygame.surface.Surface(size)
-		pixelDiffThreshold = 100
+		pixelDiffThreshold = 300
 		
 		while True:
 			image = cam.get_image()
