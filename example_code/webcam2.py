@@ -81,7 +81,7 @@ class App():
 		bgSamples = 20
 		bg = []
 		thresholded = pygame.surface.Surface(size)
-		pixelDiffThreshold = 300
+		pixelDiffThreshold = 1000
 		
 		while True:
 			image = cam.get_image()
