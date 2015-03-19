@@ -99,9 +99,9 @@ class App():
 		bgSamples = 20
 		bg = []
 		thresholded = pygame.surface.Surface(size)
-		pixelDiffThreshold = 1000
+		pixelDiffThreshold = 2000
 		bgVolume = []
-		volumeDiffThreshold = 3
+		volumeDiffThreshold = 5
 		# Initialize PyAudio
 		pyaud = pyaudio.PyAudio()
 		sampleRate = int(pyaud.get_device_info_by_index(0)['defaultSampleRate'])
