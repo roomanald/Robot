@@ -82,7 +82,7 @@ class App():
 			self.logger.debug("diff " + str(diff))
 			
 			if (isDiff):
-				self.logger.info("diff greater than threshold " + str(pixelDiffThreshold))
+				self.logger.info("diff "  + str(diff) + " greater than threshold " + str(pixelDiffThreshold))
 				t = Thread(target=self.sendMail, args =[image, background, thresholded, diff])
 				t.start()
 				
