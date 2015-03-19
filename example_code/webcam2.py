@@ -90,11 +90,12 @@ class App():
 		volumeDiffThreshold = 200
 		# Initialize PyAudio
 		pyaud = pyaudio.PyAudio()
+		sampleRate = pyaud.get_device_info_by_index(0)['defaultSampleRate']
 		# Open input stream, 16-bit mono at 44100 Hz
 		stream = pyaud.open(
 			format = pyaudio.paInt16,
 			channels = 1,
-			rate = 44100,
+			rate = sampleRate,
 			input = True)
 			
 		while True:
