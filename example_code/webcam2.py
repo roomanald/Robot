@@ -62,12 +62,7 @@ class App():
 		self.logger.debug("attached files for email")
 		# to send
 		try:
-			s = smtplib.SMTP('smtp.gmail.com:587')
-			s.ehlo()
-			s.starttls()
-			s.login('ronnie.day1@gmail.com','couxL2G3')
-			s.sendmail('ronnie.day@hotmail.co.uk',['ronnie.day@hotmail.co.uk'], msg.as_string())
-			s.quit()
+			self.s.sendmail('ronnie.day@hotmail.co.uk',['ronnie.day@hotmail.co.uk'], msg.as_string())
 			self.logger.info("Successfully sent email")
 		except:
 			self.logger.error(traceback.format_exc())
@@ -99,6 +94,11 @@ class App():
 			rate = 48000,
 			input = True)
 			
+		self.s = smtplib.SMTP('smtp.gmail.com:587')
+		self.s.ehlo()
+		self.s.starttls()
+		self.s.login('ronnie.day1@gmail.com','couxL2G3')
+		
 		while True:
 			
 			try:
