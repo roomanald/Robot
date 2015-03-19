@@ -83,7 +83,7 @@ class App():
 			self.s.connect()
 			self.issmtpsetup = true
 		except:
-			self.logger.error("failed to setup smtp")
+			self.logger.error("failed to setup smtp" + traceback.format_exc())
 			self.issmtpsetup = false
 		
 	def run(self):
