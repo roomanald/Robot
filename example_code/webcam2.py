@@ -112,7 +112,7 @@ class App():
 			
       			if (len(bg) != bgSamples or len(bgVolume) != bgVolumeSamples):
 			  bg.append(image)
-			  bgVolumeSamples.append(volume)
+			  bgVolume.append(volume)
 			  continue;
 			
 			background = pygame.transform.average_surfaces(bg)
@@ -122,8 +122,8 @@ class App():
 			isDiff = diff > pixelDiffThreshold
 			
 			self.logger.debug("image diff " + str(diff))
-			
-			isLoud = volume > volumeDiffThreshold
+			averageLoudness = sum(bgVolume) / float(len(bgVolume))
+			isLoud = volume - averageVolume > volumeDiffThreshold
 			self.logger.debug("volume diff " + str(diff))
 			
 			if (isDiff or volume):
@@ -145,7 +145,6 @@ try:
 	handler = logging.handlers.RotatingFileHandler("/home/pi/robot/example_code/webcam.log", maxBytes=100000, backupCount=2)
 	handler.setFormatter(formatter)
 	logger.addHandler(handler)
-	print ("created logger")
 	app = App(logger)
 	logger.info("created app")
 	daemon_runner = runner.DaemonRunner(app)
