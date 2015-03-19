@@ -61,11 +61,28 @@ class App():
 		msg.attach(MIMEImage(memft.getvalue(),name="thresholded.jpg"))
 		self.logger.debug("attached files for email")
 		# to send
+		self.initialisesmtp()
+		
 		try:
 			self.s.sendmail('ronnie.day@hotmail.co.uk',['ronnie.day@hotmail.co.uk'], msg.as_string())
 			self.logger.info("Successfully sent email")
 		except:
 			self.logger.error(traceback.format_exc())
+			self.issmtpsetup = false
+	
+	def initialisesmtp(self):
+		if (self.issmtpsetup):
+			return
+		
+		try:
+			self.s = smtplib.SMTP('smtp.gmail.com:587')
+			self.s.ehlo()
+			self.s.starttls()
+			self.s.login('ronnie.day1@gmail.com','couxL2G3')
+			self.issmtpsetup = true
+		except:
+			self.logger.error("failed to setup smtp")
+			self.issmtpsetup = false
 		
 	def run(self):
 		count = 0   
@@ -93,11 +110,6 @@ class App():
 			channels = 1,
 			rate = 48000,
 			input = True)
-			
-		self.s = smtplib.SMTP('smtp.gmail.com:587')
-		self.s.ehlo()
-		self.s.starttls()
-		self.s.login('ronnie.day1@gmail.com','couxL2G3')
 		
 		while True:
 			
