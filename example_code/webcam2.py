@@ -48,7 +48,7 @@ class App():
 		tstring = pygame.image.tostring(thresholded,"RGB")
 		t = Image.fromstring("RGB", (320,240), tstring)
 		memft = cStringIO.StringIO()
-		bg.save(memft, "JPEG")
+		t.save(memft, "JPEG")
 		
 		msg = MIMEMultipart()
 		msg['Subject'] = 'Intruder - (' + str(diffAmount) + ')' 
