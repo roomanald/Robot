@@ -100,14 +100,19 @@ class App():
 			input = True)
 			
 		while True:
-			image = cam.get_image()
 			
-			# Read raw microphone data
-			rawsamps = stream.read(8192)
-			# Convert raw data to NumPy array
-			samps = numpy.fromstring(rawsamps, dtype=numpy.int16)
-			# Show the volume and pitch
-			volume = analyse.loudness(samps)#, analyse.musical_detect_pitch(samps)
+			try:
+				# Read raw microphone data
+				rawsamps = stream.read(8192)
+				# Convert raw data to NumPy array
+				samps = numpy.fromstring(rawsamps, dtype=numpy.int16)
+				# Show the volume and pitch
+				volume = analyse.loudness(samps)#, analyse.musical_detect_pitch(samps)
+			except IOError: 
+      				self.logger.debug("dropped mic frame")
+      				
+			
+			image = cam.get_image()
 			
 			
       			if (len(bg) != bgSamples or len(bgVolume) != bgSamples):
