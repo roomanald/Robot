@@ -129,7 +129,7 @@ class App():
 			
 			self.logger.debug("image diff " + str(diff))
 			averageLoudness = sum(bgVolume) / float(len(bgVolume))
-			isLoud = abs(volume) - abs(averageVolume) > volumeDiffThreshold
+			isLoud = abs(volume) - abs(averageLoudness) > volumeDiffThreshold
 			self.logger.debug("volume diff " + str(diff))
 			
 			if (isDiff or volume):
