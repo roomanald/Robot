@@ -103,7 +103,7 @@ class App():
 			image = cam.get_image()
 			
 			# Read raw microphone data
-			rawsamps = stream.read(2048)
+			rawsamps = stream.read(8192)
 			# Convert raw data to NumPy array
 			samps = numpy.fromstring(rawsamps, dtype=numpy.int16)
 			# Show the volume and pitch
