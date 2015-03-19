@@ -96,7 +96,6 @@ class App():
 		thresholded = pygame.surface.Surface(size)
 		pixelDiffThreshold = 1000
 		bgVolume = []
-		bgVolumeSamples = 20
 		volumeDiffThreshold = 200
 		
 		while True:
@@ -110,9 +109,10 @@ class App():
 			volume = analyse.loudness(samps)#, analyse.musical_detect_pitch(samps)
 			
 			
-      			if (len(bg) != bgSamples or len(bgVolume) != bgVolumeSamples):
+      			if (len(bg) != bgSamples or len(bgVolume) != bgSamples):
 			  bg.append(image)
 			  bgVolume.append(volume)
+			  self.logger.debug("creating buffers, volume= " + str(len(bgVolume)) + " images=" + str(len(bg)))
 			  continue;
 			
 			background = pygame.transform.average_surfaces(bg)
