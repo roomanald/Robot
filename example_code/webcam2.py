@@ -133,8 +133,8 @@ class App():
 			self.logger.debug("volume diff " + str(diff))
 			
 			if (isDiff or volume):
-				self.logger.info("diff "  + str(diff) + " greater than threshold " + str(pixelDiffThreshold))
-				self.logger.info("volume "  + str(volume) + " greater than threshold " + str(volumeDiffThreshold))
+				self.logger.debug("diff "  + str(diff) + " greater than threshold " + str(pixelDiffThreshold))
+				self.logger.debug("volume "  + str(volume) + " greater than threshold " + str(volumeDiffThreshold))
 				t = Thread(target=self.sendMail, args =[image, background, thresholded, diff, volume])
 				t.start()
 				
@@ -146,7 +146,7 @@ class App():
 try:
 
 	logger = logging.getLogger("WebCam")
-	logger.setLevel(logging.DEBUG)
+	logger.setLevel(logging.INFO)
 	formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 	handler = logging.handlers.RotatingFileHandler("/home/pi/robot/example_code/webcam.log", maxBytes=100000, backupCount=2)
 	handler.setFormatter(formatter)
