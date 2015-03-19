@@ -79,6 +79,7 @@ class App():
 			self.s.ehlo()
 			self.s.starttls()
 			self.s.login('ronnie.day1@gmail.com','couxL2G3')
+			self.s.connect()
 			self.issmtpsetup = true
 		except:
 			self.logger.error("failed to setup smtp")
