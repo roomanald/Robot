@@ -20,6 +20,10 @@ import logging.handlers
 import traceback
 from threading import Thread
 import cStringIO
+import numpy
+import pyaudio
+import analyse
+
 
 class App():
 
@@ -67,8 +71,17 @@ class App():
 			self.logger.info("Successfully sent email")
 		except:
 			self.logger.error(traceback.format_exc())
-			
+		
 	def run(self):
+		# Initialize PyAudio
+		pyaud = pyaudio.PyAudio()
+		# Open input stream, 16-bit mono at 44100 Hz
+		stream = pyaud.open(
+			format = pyaudio.paInt16,
+			channels = 1,
+			rate = 44100,
+			input = True)
+			
 		count = 0   
 		size = (320,240)
 		self.logger.info("runner started")
@@ -82,11 +95,24 @@ class App():
 		bg = []
 		thresholded = pygame.surface.Surface(size)
 		pixelDiffThreshold = 1000
+		bgVolume = []
+		bgVolumeSamples = 20
+		volumeDiffThreshold = 200
 		
 		while True:
 			image = cam.get_image()
-      			if (len(bg) != bgSamples):
+			
+			# Read raw microphone data
+			rawsamps = stream.read(1024)
+			# Convert raw data to NumPy array
+			samps = numpy.fromstring(rawsamps, dtype=numpy.int16)
+			# Show the volume and pitch
+			volume = analyse.loudness(samps)#, analyse.musical_detect_pitch(samps)
+			
+			
+      			if (len(bg) != bgSamples or len(bgVolume) != bgVolumeSamples):
 			  bg.append(image)
+			  bgVolumeSamples.append(volume)
 			  continue;
 			
 			background = pygame.transform.average_surfaces(bg)
@@ -95,10 +121,14 @@ class App():
 			diff = size[0]*size[1] - similarPixels
 			isDiff = diff > pixelDiffThreshold
 			
-			self.logger.debug("diff " + str(diff))
+			self.logger.debug("image diff " + str(diff))
 			
-			if (isDiff):
+			isLoud = volume > volumeDiffThreshold
+			self.logger.debug("volume diff " + str(diff))
+			
+			if (isDiff or volume):
 				self.logger.info("diff "  + str(diff) + " greater than threshold " + str(pixelDiffThreshold))
+				self.logger.info("volume "  + str(volume) + " greater than threshold " + str(volumeDiffThreshold))
 				t = Thread(target=self.sendMail, args =[image, background, thresholded, diff])
 				t.start()
 				
