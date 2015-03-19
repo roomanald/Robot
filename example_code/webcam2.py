@@ -87,7 +87,7 @@ class App():
 		thresholded = pygame.surface.Surface(size)
 		pixelDiffThreshold = 1000
 		bgVolume = []
-		volumeDiffThreshold = 200
+		volumeDiffThreshold = 3
 		# Initialize PyAudio
 		pyaud = pyaudio.PyAudio()
 		sampleRate = int(pyaud.get_device_info_by_index(0)['defaultSampleRate'])
@@ -103,7 +103,7 @@ class App():
 			image = cam.get_image()
 			
 			# Read raw microphone data
-			rawsamps = stream.read(1024)
+			rawsamps = stream.read(2048)
 			# Convert raw data to NumPy array
 			samps = numpy.fromstring(rawsamps, dtype=numpy.int16)
 			# Show the volume and pitch
@@ -124,7 +124,7 @@ class App():
 			
 			self.logger.debug("image diff " + str(diff))
 			averageLoudness = sum(bgVolume) / float(len(bgVolume))
-			isLoud = volume - averageVolume > volumeDiffThreshold
+			isLoud = abs(volume) - abs(averageVolume) > volumeDiffThreshold
 			self.logger.debug("volume diff " + str(diff))
 			
 			if (isDiff or volume):
