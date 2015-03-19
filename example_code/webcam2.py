@@ -69,7 +69,7 @@ class App():
 			self.logger.info("Successfully sent email")
 		except:
 			self.logger.error(traceback.format_exc())
-			self.issmtpsetup = false
+			self.issmtpsetup = False
 	
 	def initialisesmtp(self):
 		if (self.issmtpsetup):
@@ -81,10 +81,10 @@ class App():
 			self.s.starttls()
 			self.s.login('ronnie.day1@gmail.com','couxL2G3')
 			self.s.connect()
-			self.issmtpsetup = true
+			self.issmtpsetup = True
 		except:
 			self.logger.error("failed to setup smtp" + traceback.format_exc())
-			self.issmtpsetup = false
+			self.issmtpsetup = False
 		
 	def run(self):
 		count = 0   
