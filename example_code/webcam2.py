@@ -35,7 +35,7 @@ class App():
 		self.pidfile_timeout = 5
 		self.logger = logger
 		
-	def sendMail(self, image, background, thresholded, diffAmount):
+	def sendMail(self, image, background, thresholded, diffAmount, volume):
 		#pygame.image.save(image, "image.jpg")
 		#pygame.image.save(background, "background.jpg")
 		#pygame.image.save(thresholded, "thresholded.jpg")
@@ -55,7 +55,7 @@ class App():
 		t.save(memft, "JPEG")
 		
 		msg = MIMEMultipart()
-		msg['Subject'] = 'Intruder - (' + str(diffAmount) + ')' 
+		msg['Subject'] = 'Image diff= (' + str(diffAmount) + ')' + " Loudness = (" + volume +")" 
 		msg.attach(MIMEImage(memfim.getvalue(),name="image.jpg"))
 		msg.attach(MIMEImage(memfbg.getvalue(),name="background.jpg"))
 		msg.attach(MIMEImage(memft.getvalue(),name="thresholded.jpg"))
@@ -135,7 +135,7 @@ class App():
 			if (isDiff or volume):
 				self.logger.info("diff "  + str(diff) + " greater than threshold " + str(pixelDiffThreshold))
 				self.logger.info("volume "  + str(volume) + " greater than threshold " + str(volumeDiffThreshold))
-				t = Thread(target=self.sendMail, args =[image, background, thresholded, diff])
+				t = Thread(target=self.sendMail, args =[image, background, thresholded, diff, volume])
 				t.start()
 				
 			#integrate into the background. 
