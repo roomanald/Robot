@@ -67,7 +67,6 @@ class App():
 		
 		while True:
 			image = cam.get_image()
-			print("got image")
       			if (len(bg) != bgSamples):
 			  bg.append(image)
 			  continue;
@@ -76,10 +75,10 @@ class App():
 		
 			similarPixels = pygame.transform.threshold(thresholded,image,(0,255,0),(30,30,30),(0,0,0),1,background)
 			diff = size[0]*size[1] - similarPixels
-			print("diff " + str(diff))
 			isDiff = diff > 100
 
 			if (isDiff):
+				print("diff " + str(diff))
 				t = Thread(target=self.sendMail, args =[image, background, thresholded, diff])
 				t.start()
 			else: #dont allow images that are "different" to contribute to background collection. 
