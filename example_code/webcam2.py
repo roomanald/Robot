@@ -52,7 +52,7 @@ class App():
 		msg = MIMEMultipart()
 		msg['Subject'] = 'Intruder - (' + str(diffAmount) + ')' 
 		msg.attach(MIMEImage(memfim.getvalue(),name="image.jpg"))
-		msg.attach(MIMEImage(mefbg.getvalue(),name="background.jpg"))
+		msg.attach(MIMEImage(memfbg.getvalue(),name="background.jpg"))
 		msg.attach(MIMEImage(memft.getvalue(),name="thresholded.jpg"))
 		self.logger.debug("attached files for email")
 		# to send
