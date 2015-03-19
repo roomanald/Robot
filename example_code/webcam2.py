@@ -55,7 +55,7 @@ class App():
 		t.save(memft, "JPEG")
 		
 		msg = MIMEMultipart()
-		msg['Subject'] = 'Image diff= (' + str(diffAmount) + ')' + " Loudness = (" + str(volume) +")" 
+		msg['Subject'] = 'Image diff= (' + str(diffAmount) + ') Loudness = (' + str(volume) +')'
 		msg.attach(MIMEImage(memfim.getvalue(),name="image.jpg"))
 		msg.attach(MIMEImage(memfbg.getvalue(),name="background.jpg"))
 		msg.attach(MIMEImage(memft.getvalue(),name="thresholded.jpg"))
