@@ -61,7 +61,7 @@ class App():
 		cam.start()
 		time.sleep(2)#let the camera settle
 		print("camera started")
-		bgSamples = 5
+		bgSamples = 20
 		bg = []
 		thresholded = pygame.surface.Surface(size)
 		
@@ -81,9 +81,10 @@ class App():
 				print("diff " + str(diff))
 				t = Thread(target=self.sendMail, args =[image, background, thresholded, diff])
 				t.start()
-			#else: #reset the background collection 
-			#	bg.pop(0)
-			#	bg.append(image)
+				
+			#integrate into the background. 
+			bg.pop(0)
+			bg.append(image)
 		#cam.stop()
 
 try:
