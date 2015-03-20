@@ -15,7 +15,7 @@ class MovementDetector:
 	pygame.camera.init()
 	self.cam = pygame.camera.Camera("/dev/video0",size)
 	
-	def start(self)
+	def start(self):
 	
 		thresholded = pygame.surface.Surface(self.imageSize)
 		self.cam.start()
@@ -41,6 +41,6 @@ class MovementDetector:
 		        self.bg.pop(0)
 		        self.bg.append(image)
 	        
-	def stop(self)
+	def stop(self):
 	    self.cam.stop()
 	    
