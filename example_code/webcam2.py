@@ -155,6 +155,8 @@ class App():
 			#integrate into the background. 
 			bg.pop(0)
 			bg.append(image)
+			bgVolume.pop(0)
+			bgVolume.append(volume)
 		#cam.stop()
 
 try:
