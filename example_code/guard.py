@@ -65,10 +65,12 @@ class Guard():
 			self.issmtpsetup = False
 	
 	def movementDetected(self, image, background, thresholded,diff):
-	  return
+		self.logger.info("movementDetected")
+		return
 	
-	def noiseDetected(self, noise, averageNoise)
-	  return
+	def noiseDetected(self, noise, averageNoise):
+		self.logger.info("noiseDetected")
+		return
 	
 	def run(self):
 		self.logger.info("runner started")
