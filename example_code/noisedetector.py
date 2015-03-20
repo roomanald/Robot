@@ -1,4 +1,3 @@
-
 import numpy
 import pyaudio
 import analyse
@@ -14,7 +13,7 @@ class NoiseDetector:
 		self.sampleRate = int(pyaud.get_device_info_by_index(0)['defaultSampleRate'])
 		self.pyaud = pyaudio.PyAudio()
 	      
-	def start(self)
+	def start(self):
 		# Open input stream, 16-bit mono at 44100 Hz
 		stream = self.pyaud.open(format = pyaudio.paInt16,channels = 1,	rate = self.sampleRate,	input = True)
 		
@@ -46,7 +45,7 @@ class NoiseDetector:
 		        self.bg.pop(0)
 		        self.bg.append(volume)
 	        
-	def stop(self)
+	def stop(self):
 		self.stream.stop_stream()
 		self.stream.close()
 		self.pyaud.terminate()
