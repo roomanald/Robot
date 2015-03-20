@@ -29,8 +29,7 @@ class Guard():
 		self.imageSize = (320,240)
 		
 	def sendMail(self, image, background, thresholded, diffAmount, volume):
-
-    imageMem = convertPygameSurfaceToMemoryStream(image, self.imageSize)
+    		imageMem = convertPygameSurfaceToMemoryStream(image, self.imageSize)
 		backgroundMem = convertPygameSurfaceToMemoryStream(background, self.imageSize)
 		thresholdMem = convertPygameSurfaceToMemoryStream(thresholded, self.imageSize)
 		
