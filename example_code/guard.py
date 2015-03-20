@@ -64,14 +64,16 @@ class Guard():
 		msg.attach(MIMEImage(imageMem.getvalue(),name="image.jpg"))
 		msg.attach(MIMEImage(backgroundMem.getvalue(),name="background.jpg"))
 		msg.attach(MIMEImage(thresholdMem.getvalue(),name="thresholded.jpg"))
-		self.sendMail(msg)
+		t = Thread(target=self.sendMail, args =[msg])
+		t.start()
 		return
 	
 	def noiseDetected(self, noise, averageNoise):
 		self.logger.info("noiseDetected")
 		msg = MIMEMultipart()
 		msg['Subject'] = 'Noise detected diff= (' + str(noise) + ') average noise =(' + str(averageNoise) +')'
-		sendMail(msg)
+		t = Thread(target=self.sendMail, args =[msg])
+		t.start()
 		return
 	
 	def run(self):
@@ -82,9 +84,12 @@ class Guard():
 		noiseDiffThreshold = 5
 		
 		self.movementDetector = MovementDetector(self.logger,self.movementDetected, sampleCount,  pixelDiffThreshold, self.imageSize)
-		self.movementDetector.start()
+		movementThread = Thread(target=self.movementDetector.start)
+		movementThread.start()
+		
 		self.noiseDetector = NoiseDetector(self.logger, self.noiseDetected, sampleCount, noiseDiffThreshold)
-		self.noiseDetector.start()
+		noiseThread = Thread(target=self.noiseDetector.start)
+		noiseThread.start()
 
 try:
 
