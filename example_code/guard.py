@@ -88,10 +88,10 @@ class Guard():
 
 try:
 
-	logger = logging.getLogger("WebCam")
+	logger = logging.getLogger("Guard")
 	logger.setLevel(logging.INFO)
 	formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-	handler = logging.handlers.RotatingFileHandler("/home/pi/robot/example_code/webcam.log", maxBytes=100000, backupCount=2)
+	handler = logging.handlers.RotatingFileHandler("/home/pi/robot/example_code/guard.log", maxBytes=100000, backupCount=2)
 	handler.setFormatter(formatter)
 	logger.addHandler(handler)
 	app = Guard(logger)
