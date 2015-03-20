@@ -47,9 +47,6 @@ class NoiseDetector:
 		        self.bg.append(volume)
 	        
 	def stop(self)
-		# stop stream (4)
 		self.stream.stop_stream()
 		self.stream.close()
-		
-		# close PyAudio (5)
 		self.pyaud.terminate()
