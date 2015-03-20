@@ -28,20 +28,9 @@ class Guard():
 		self.issmtpsetup = False
 		self.imageSize = (320,240)
 		
-	def sendMail(self, image, background, thresholded, diffAmount, volume):
-    		imageMem = convertPygameSurfaceToMemoryStream(image, self.imageSize)
-		backgroundMem = convertPygameSurfaceToMemoryStream(background, self.imageSize)
-		thresholdMem = convertPygameSurfaceToMemoryStream(thresholded, self.imageSize)
-		
-		msg = MIMEMultipart()
-		msg['Subject'] = 'Image diff= (' + str(diffAmount) + ') Loudness = (' + str(volume) +')'
-		msg.attach(MIMEImage(imageMem.getvalue(),name="image.jpg"))
-		msg.attach(MIMEImage(backgroundMem.getvalue(),name="background.jpg"))
-		msg.attach(MIMEImage(thresholdMem.getvalue(),name="thresholded.jpg"))
-		self.logger.debug("attached files for email")
+	def sendMail(msg):
 		# to send
 		self.initialisesmtp()
-		
 		try:
 			self.s.sendmail('ronnie.day@hotmail.co.uk',['ronnie.day@hotmail.co.uk'], msg.as_string())
 			self.logger.info("Successfully sent email")
@@ -66,10 +55,23 @@ class Guard():
 	
 	def movementDetected(self, image, background, thresholded,diff):
 		self.logger.info("movementDetected")
+		imageMem = convertPygameSurfaceToMemoryStream(image, self.imageSize)
+		backgroundMem = convertPygameSurfaceToMemoryStream(background, self.imageSize)
+		thresholdMem = convertPygameSurfaceToMemoryStream(thresholded, self.imageSize)
+		
+		msg = MIMEMultipart()
+		msg['Subject'] = 'Movement detected diff= (' + str(diff) + ')'
+		msg.attach(MIMEImage(imageMem.getvalue(),name="image.jpg"))
+		msg.attach(MIMEImage(backgroundMem.getvalue(),name="background.jpg"))
+		msg.attach(MIMEImage(thresholdMem.getvalue(),name="thresholded.jpg"))
+		self.sendMail(msg)
 		return
 	
 	def noiseDetected(self, noise, averageNoise):
 		self.logger.info("noiseDetected")
+		msg = MIMEMultipart()
+		msg['Subject'] = 'Noise detected diff= (' + str(noise) + ') average noise =(' + str(averageNoise) +')'
+		sendMail(msg)
 		return
 	
 	def run(self):
