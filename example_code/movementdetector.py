@@ -37,7 +37,7 @@ class MovementDetector:
 			isDiff = diff > self.pixelDiffThreshold
 			
 			if (isDiff):
-			    movementCallback(image, background, thresholded, diff)
+			    self.movementCallback(image, background, thresholded, diff)
 		        
 		        self.bg.pop(0)
 		        self.bg.append(image)
