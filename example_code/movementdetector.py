@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 import pygame.camera
 import logging
+import time
 
 class MovementDetector:
 	def __init__(self, logger, movementCallback, sampleCount, pixelDiffThreshold, imageSize):
