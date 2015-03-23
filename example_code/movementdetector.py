@@ -42,5 +42,5 @@ class MovementDetector:
 		        self.bg.append(image)
 	        
 	def stop(self):
-	    self.cam.stop()
+		self.cam.stop()
 	    
