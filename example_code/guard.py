@@ -19,18 +19,18 @@ import movementdetector
 import pygameHelper
 import sys
 
-class StreamToLogger(object):
-   """
-   Fake file-like stream object that redirects writes to a logger instance.
-   """
-   def __init__(self, logger, log_level=logging.INFO):
-      self.logger = logger
-      self.log_level = log_level
-      self.linebuf = ''
- 
-   def write(self, buf):
-      for line in buf.rstrip().splitlines():
-         self.logger.log(self.log_level, line.rstrip())
+#class StreamToLogger(object):
+#  """
+#   Fake file-like stream object that redirects writes to a logger instance.
+#   """
+#   def __init__(self, logger, log_level=logging.INFO):
+#      self.logger = logger
+#      self.log_level = log_level
+#      self.linebuf = ''
+# 
+#   def write(self, buf):
+#     for line in buf.rstrip().splitlines():
+#         self.logger.log(self.log_level, line.rstrip())
 
 class Guard():
 
@@ -121,10 +121,10 @@ try:
 	logger.info("created app")
 	daemon_runner = runner.DaemonRunner(app)
 	
-	sl = StreamToLogger(logger, logging.INFO)
-	sys.stdout = sl
-	sl = StreamToLogger(logger, logging.ERROR)
-	sys.stderr = sl
+	#sl = StreamToLogger(logger, logging.INFO)
+	#sys.stdout = sl
+	#sl = StreamToLogger(logger, logging.ERROR)
+	#sys.stderr = sl
 	
 	daemon_runner.daemon_context.files_preserve=[handler.stream]
 	daemon_runner.do_action()
