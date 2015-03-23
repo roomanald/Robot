@@ -102,15 +102,17 @@ try:
 	handler = logging.handlers.RotatingFileHandler("/home/pi/robot/example_code/guard.log", maxBytes=100000, backupCount=2)
 	handler.setFormatter(formatter)
 	logger.addHandler(handler)
+
+	
+	app = Guard(logger)
+	logger.info("created app")
+	daemon_runner = runner.DaemonRunner(app)
 	
 	sl = StreamToLogger(logger, logging.INFO)
 	sys.stdout = sl
 	sl = StreamToLogger(logger, logging.ERROR)
 	sys.stderr = sl
 	
-	app = Guard(logger)
-	logger.info("created app")
-	daemon_runner = runner.DaemonRunner(app)
 	daemon_runner.daemon_context.files_preserve=[handler.stream]
 	daemon_runner.do_action()
 except:
