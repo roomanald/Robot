@@ -14,8 +14,8 @@ import logging
 import logging.handlers
 import traceback
 from threading import Thread
-import noiseDetector
-import movementDetector
+import noisedetector
+import movementdetector
 import pygameHelper
 
 
