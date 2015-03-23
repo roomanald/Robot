@@ -17,6 +17,7 @@ from threading import Thread
 import noisedetector
 import movementdetector
 import pygameHelper
+import sys
 
 class StreamToLogger(object):
    """
