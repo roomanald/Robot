@@ -58,9 +58,9 @@ class Guard():
 	
 	def movementDetected(self, image, background, thresholded,diff):
 		self.logger.info("movementDetected")
-		imageMem = convertPygameSurfaceToMemoryStream(image, self.imageSize)
-		backgroundMem = convertPygameSurfaceToMemoryStream(background, self.imageSize)
-		thresholdMem = convertPygameSurfaceToMemoryStream(thresholded, self.imageSize)
+		imageMem = pygameHelper.convertPygameSurfaceToMemoryStream(image, self.imageSize)
+		backgroundMem = pygameHelper.convertPygameSurfaceToMemoryStream(background, self.imageSize)
+		thresholdMem = pygameHelper.convertPygameSurfaceToMemoryStream(thresholded, self.imageSize)
 		
 		msg = MIMEMultipart()
 		msg['Subject'] = 'Movement detected diff= (' + str(diff) + ')'
@@ -86,11 +86,11 @@ class Guard():
 		pixelDiffThreshold = 1000
 		noiseDiffThreshold = 5
 		
-		self.movementDetector = MovementDetector(self.logger,self.movementDetected, sampleCount,  pixelDiffThreshold, self.imageSize)
+		self.movementDetector = movementdetector.MovementDetector(self.logger,self.movementDetected, sampleCount,  pixelDiffThreshold, self.imageSize)
 		movementThread = Thread(target=self.movementDetector.start)
 		movementThread.start()
 		
-		self.noiseDetector = NoiseDetector(self.logger, self.noiseDetected, sampleCount, noiseDiffThreshold)
+		self.noiseDetector = noisedetector.NoiseDetector(self.logger, self.noiseDetected, sampleCount, noiseDiffThreshold)
 		noiseThread = Thread(target=self.noiseDetector.start)
 		noiseThread.start()
 
