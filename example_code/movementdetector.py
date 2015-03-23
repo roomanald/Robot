@@ -13,7 +13,7 @@ class MovementDetector:
 	self.bg = []
 	pygame.init()
 	pygame.camera.init()
-	self.cam = pygame.camera.Camera("/dev/video0",size)
+	self.cam = pygame.camera.Camera("/dev/video0",self.imageSize)
 	
 	def start(self):
 	
