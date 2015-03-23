@@ -44,7 +44,7 @@ class Guard():
 		self.issmtpsetup = False
 		self.imageSize = (320,240)
 		
-	def sendMail(msg):
+	def sendMail(self, msg):
 		# to send
 		self.initialisesmtp()
 		try:
