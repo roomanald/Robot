@@ -40,7 +40,7 @@ class NoiseDetector:
 			self.logger.debug("volume diff " + str(diff))
 			
 			if (isDiff):
-				noiseCallback(diff, averageLoudness)
+				self.noiseCallback(diff, averageLoudness)
 		        
 		        self.bg.pop(0)
 		        self.bg.append(volume)
