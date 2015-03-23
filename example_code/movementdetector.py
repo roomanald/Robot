@@ -4,17 +4,17 @@ import pygame.camera
 import logging
 
 class MovementDetector:
-    def __init__(self, logger, movementCallback, sampleCount, pixelDiffThreshold, imageSize):
-        self.logger = logger
-        self.movementCallback = movementCallback
-        self.sampleCount = sampleCount
-        self.pixelDiffThreshold = pixelDiffThreshold
-	self.imageSize = imageSize
-	self.bg = []
-	pygame.init()
-	pygame.camera.init()
-	self.cam = pygame.camera.Camera("/dev/video0",self.imageSize)
-	
+	def __init__(self, logger, movementCallback, sampleCount, pixelDiffThreshold, imageSize):
+		self.logger = logger
+		self.movementCallback = movementCallback
+		self.sampleCount = sampleCount
+		self.pixelDiffThreshold = pixelDiffThreshold
+		self.imageSize = imageSize
+		self.bg = []
+		pygame.init()
+		pygame.camera.init()
+		self.cam = pygame.camera.Camera("/dev/video0",self.imageSize)
+
 	def start(self):
 	
 		thresholded = pygame.surface.Surface(self.imageSize)
