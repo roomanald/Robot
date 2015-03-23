@@ -10,8 +10,8 @@ class NoiseDetector:
 		self.sampleCount = sampleCount
 		self.threshold = threshold
 		self.bg = []
-		self.sampleRate = int(pyaud.get_device_info_by_index(0)['defaultSampleRate'])
 		self.pyaud = pyaudio.PyAudio()
+		self.sampleRate = int(self.pyaud.get_device_info_by_index(0)['defaultSampleRate'])
 	      
 	def start(self):
 		# Open input stream, 16-bit mono at 44100 Hz
